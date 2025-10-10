@@ -1,6 +1,7 @@
+
+import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import "./globals.css";
 import icon from '../app/bag-simple.svg'
 
 const geistSans = Roboto({
@@ -13,11 +14,13 @@ export const metadata: Metadata = {
   description: "GRAÇA - Gestão de Recursos de Alimentos Cuidados e Apoio",
 };
 
-export default function RootLayout({
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
   return (
     <html lang="en" className="dark">
       <head>
@@ -26,7 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} antialiased`}
       >
-        {children}
+         {children}
       </body>
     </html>
   );

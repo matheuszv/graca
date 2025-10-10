@@ -1,19 +1,27 @@
 
 import type { Metadata } from "next";
-import Pontos from "./page";
+import { redirect } from 'next/navigation'
+import { getAuthUser } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "GRAÇA",
   description: "GRAÇA - Gestão de Recursos de Alimentos Cuidados e Apoio",
 };
 
-export default async function RootLayout() {
+export default async function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const user = await getAuthUser()
 
-  const cidades = [{id:1300, nome: 'João Pessoa - PB da borborema'}, {id:1, nome: 'Campinas'}]
-
+  if (!user) {
+    redirect('/login')
+  }
+  
   return (
-    <div className="dark bg-[url('/MaskGroup.png')] bg-no-repeat bg-center">
-      <Pontos cidades={cidades}/>
-    </div>
+    <html className="dark">
+      {children} 
+    </html>
   );
 }

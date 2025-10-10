@@ -7,23 +7,18 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Activities {
+model users {
   id          String @id @default(auto())     @map("_id") @db.ObjectId
-  date        DateTime
-  travelId    String
-  activities  Json?
+  nome String
+  cpf String
+  email String
+  telefone String
+  senha String
 }
 
-model Travel {
-
-    id String @id @default(auto()) @map("_id") @db.ObjectId
-    local String
-    ownerName String
-    ownerEmail String
-    dayStart DateTime
-    dayEnd DateTime
-    emailsInvite String
-    links String?
-    password String
-
+model codeSession{
+  id      String @id @default(auto())     @map("_id") @db.ObjectId
+  email   String
+  codigo  String
+  date    DateTime
 }
