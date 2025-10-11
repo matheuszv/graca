@@ -23,7 +23,7 @@ export async function POST(req: Request) {
 
   // Gera JWT
   const token = jwt.sign(
-    { userId: user.id, email: user.email },
+    { userId: user.id, email: user.email, name: user.nome },
     process.env.JWT_SECRET!,
     { expiresIn: '7d' }
   )
@@ -36,5 +36,13 @@ export async function POST(req: Request) {
     maxAge: 60 * 60 * 24 * 7, // 7 dias
   })
 
+  return response
+}
+
+
+export async function DELETE() {
+  console.log('logout')
+  const response = NextResponse.json({ message: 'Logout realizado' })
+  response.cookies.delete('token')
   return response
 }

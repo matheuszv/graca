@@ -67,8 +67,8 @@ export function Pontos({ cidades }:{cidades:any[]}){
   }
 
   return (
-    <div className="flex justify-center items-center w-screen h-screen">
-      <div className="bg-[#202024] justify-center flex flex-col p-6 rounded-lg w-[500px] max-md:w-[340px] h-[590px]">
+    <div className="flex-1 justify-center items-center h-screen">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 inset-0 bg-[#202024] justify-center flex flex-col p-6 rounded-lg w-[500px] max-md:w-[340px] h-[590px] z-[10]">
         <div className="flex flex-col gap-3 border-b-[#E6B3B3] border-b py-2">
             <h2 className="text-xl font-bold">Encontre pontos de apoio</h2>
             <p className="text-sm text-muted-foreground">

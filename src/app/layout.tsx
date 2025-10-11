@@ -2,7 +2,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import icon from '../app/bag-simple.svg'
+import icon from '../app/heart-handshake.svg'
 
 const geistSans = Roboto({
   variable: "--font-geist-sans",

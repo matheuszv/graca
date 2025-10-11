@@ -2,6 +2,8 @@
 import type { Metadata } from "next";
 import { redirect } from 'next/navigation'
 import { getAuthUser } from "@/lib/auth";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { AppSidebar } from "@/components/app-sidebar"
 
 export const metadata: Metadata = {
   title: "GRAÇA",
@@ -20,8 +22,13 @@ export default async function RootLayout({
   }
   
   return (
-    <html className="dark">
-      {children} 
-    </html>
+    <SidebarProvider>
+      <AppSidebar userName={user?.name} id={user.userId.toString()} />
+      <main>
+        <SidebarTrigger />
+        {children}
+      </main>
+    </SidebarProvider>
+    
   );
 }
