@@ -3,6 +3,7 @@ import { cookies } from 'next/headers'
 import jwt from 'jsonwebtoken'
 
 interface JwtPayload {
+  name: string
   userId: number
   email: string
 }

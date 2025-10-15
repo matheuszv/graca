@@ -19,7 +19,7 @@ import { useRouter } from "next/navigation"
 const items = [
   {
     title: "Home",
-    url: "/",
+    url: "/pontos",
     icon: Home,
   },
   {
@@ -29,31 +29,30 @@ const items = [
   },
   {
     title: "Meus pontos cadastrados",
-    url: "#",
+    url: "/meuspontos",
     icon: MapPinHouse,
   },
   {
     title: "Meus pontos favoritos",
-    url: "#",
+    url: "/meusfavoritos",
     icon: MapPinCheck,
   },
   {
     title: "Política de Privacidade",
-    url: "#",
+    url: "/politicas",
     icon: Shield,
   },
   {
     title: "Créditos",
-    url: "#",
+    url: "/creditos",
     icon: Star,
   },
 ]
 
-export function AppSidebar({userName, id}:{userName:string, id:string}) {
+export function AppSidebar({userName}:{userName:string}) {
     const router = useRouter()
 
     async function desconect(){
-        console.log("passou aq")
         const res = await fetch('/api/login', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
@@ -79,6 +78,7 @@ export function AppSidebar({userName, id}:{userName:string, id:string}) {
           <SidebarGroupLabel className="flex justify-between my-2">
             <span className="text-base">{userName}</span> 
             <button
+                onClick={() => router.push(`/perfil`)}
                 className="flex items-center justify-center w-8 h-8 rounded-lg bg-gray-100 hover:bg-gray-400 transition-all shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-500 cursor-pointer"
                 aria-label="Editar perfil"
             >

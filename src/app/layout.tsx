@@ -3,6 +3,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import icon from '../app/heart-handshake.svg'
+import { redirect } from "next/navigation";
+import { getAuthUser } from "@/lib/auth";
 
 const geistSans = Roboto({
   variable: "--font-geist-sans",
@@ -20,6 +22,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const user = await getAuthUser()
+  
+    if (!user) {
+      redirect('/login')
+    }
+    
   
   return (
     <html lang="en" className="dark">

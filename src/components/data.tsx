@@ -2,7 +2,7 @@
 'use client'
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
-import { useState } from "react"
+import { memo, useCallback, useState } from "react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -22,49 +22,30 @@ import { Input } from "@/components/ui/input"
 
 import { ScrollArea } from "@/components/ui/scroll-area"
 
-export function Pontos({ cidades }:{cidades:any[]}){
-
-  const apoioLista = [
-  {
-    id: 0,
-    nome: "APOIO A UPA DE MANGABEIRA",
-    local: "UPA DE MANGABEIRA",
-    endereco: "Rua João Carlos, 1587" ,
-    tipoApoio: 3,
-    data: '24/09/2025',
-    hora: '19:00',
-    cidade: 1330,
-    descricao: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nam, ab veniam maiores facilis, porro non magni vitae reprehenderit id odit velit sint nisi harum doloribus illum quasi fugiat enim voluptatem?",
-    coordenada: [-7.119, -34.869]
-  },
-  {
-    id: 1,
-    nome: "DOAÇÃO DE SOPA",
-    local: "Em frente a pagmenos",
-    endereco: "Av. Josefá Taveira, 1200" ,
-    tipoApoio: 2,
-    data: '20/09/2025,24/09/2026',
-    hora: '19:00,20:00',
-    cidade: 1300,
-    descricao: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nam, ab veniam maiores facilis, porro non magni vitae reprehenderit id odit velit sint nisi harum doloribus illum quasi fugiat enim voluptatem?",
-    coordenada: [-7.115, -34.865]
-  },
-  ]
+export function Pontos({ cidades, apoioLista }:{cidades:any[], apoioLista: any}){
 
   const [apoioList, setApoioList] = useState(apoioLista)
   const [isMapOpen, setIsMapOpen] = useState(false)
   const [search, setSearch] = useState('')
+  const [cidadeEscolhida, setCidadeEscolhida] = useState<number>(0)
 
-  const pontosFiltrados = apoioList.filter((p) =>
+  const tipoApoio = [
+    {nome: 'Alimentos', id: 1},
+    {nome: 'Roupas', id: 2},
+    {nome: 'Higiene', id: 3},
+  ]
+
+  const pontosFiltrados = apoioList.filter((p: any) =>
     p.nome.toLowerCase().includes(search.toLowerCase()) ||
     p.local.toLowerCase().includes(search.toLowerCase()) ||
     p.endereco.toLowerCase().includes(search.toLowerCase())
   )
 
-  function handleCidadeFiltro(id: number){
-    setApoioList(apoioLista.filter((p) => p.cidade == id))
-    console.log(id)
-  }
+  const handleCidadeFiltro = useCallback((cidadeId: number) => {
+    setApoioList(apoioLista.filter((p: { cidade: number }) => p.cidade == cidadeId))
+    setCidadeEscolhida(cidadeId)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className="flex-1 justify-center items-center h-screen">
@@ -85,24 +66,24 @@ export function Pontos({ cidades }:{cidades:any[]}){
 
       <ScrollArea className="h-[450px] py-3">
         <div className="flex items-center space-x-2">
-            <Switch id='map-mode' checked={isMapOpen} 
+            <Switch id='map-mode' checked={isMapOpen} disabled={cidadeEscolhida==0}
               onCheckedChange={(checked) => setIsMapOpen(checked)} />
-            <Label htmlFor="map-mode">Ver pontos pelo mapa</Label>
+            <Label htmlFor="map-mode">Ver pontos pelo mapa <span className={`text-[10px] text-gray-400 font-extralight ${cidadeEscolhida==0 ? '' : 'hidden'} `}>(habilitado apenas com cidade filtrada)</span></Label>
           </div>
           {isMapOpen ? 
-          <Mapa lista={pontosFiltrados}/> : pontosFiltrados.map((apoio) => {
+          <Mapa lista={pontosFiltrados} cidadeCoord={cidades.find((cidade: any) => cidade.id == cidadeEscolhida).coord}/> : pontosFiltrados.map((apoio: any) => {
             return ( 
               <Card className="rounded-2xl p-4 bg-card mt-2 cursor-pointer hover:shadow-lg hover:border hover:border-zinc-400 transition duration-400" key={apoio.id}>
                 <div className="flex justify-between items-center mb-2">
                   <h2 className="text-lg font-bold text-primary">{apoio.nome}</h2>
-                  <span className="text-sm text-muted-foreground">{apoio.data[0]} • {apoio.hora[0]}</span>
+                  <span className="text-sm text-muted-foreground flex gap-2"><Calendar className="w-4 h-4 mt-0.5 flex-shrink-0" />{apoio.data[0]} • {apoio.hora}</span>
                 </div>
 
                 <div className="space-y-1 text-sm text-muted-foreground mb-3">
-                  <p><span className="font-semibold">Local:</span> {apoio.local}</p>
-                  <p><span className="font-semibold">Endereço:</span> {apoio.endereco}</p>
-                  <p><span className="font-semibold">Cidade:</span> {apoio.cidade}</p>
-                  <p><span className="font-semibold">Tipo de apoio:</span> {apoio.tipoApoio}</p>
+                  <p className="flex gap-2"><span className="font-semibold flex gap-2"><Building2 className="w-4 h-4 mt-0.5 flex-shrink-0" /> Local:</span> {apoio.local}</p>
+                  <p className="flex gap-2"><span className="font-semibold flex gap-2"><MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" /> Endereço:</span> {apoio.endereco}</p>
+                  <p className="flex gap-2"><span className="font-semibold flex gap-2"><MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />Cidade:</span> {cidades.find((cidade: any) => cidade.id == apoio.cidade).nome}</p>
+                  <p className="flex gap-2"><span className="font-semibold flex gap-2"><Tag className="w-4 h-4 mt-0.5 flex-shrink-0" />Tipo de apoio:</span> {tipoApoio.find((tipo: any)=> tipo.id == apoio.tipoApoio)?.nome}</p>
                 </div>
 
                 <p className="text-sm leading-relaxed text-foreground">
@@ -121,7 +102,7 @@ export function Pontos({ cidades }:{cidades:any[]}){
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { Check, ChevronsUpDown, Search } from "lucide-react"
+import { Building2, Calendar, Check, ChevronsUpDown, MapPin, Search, Tag } from "lucide-react"
 import { Card } from "@/components/ui/card"
 
 const customIcon = new L.Icon({
@@ -131,11 +112,11 @@ const customIcon = new L.Icon({
 });
 
 
-export function Mapa({lista}:{lista:any[]}){
+export function Mapa({lista, cidadeCoord}:{lista:any[], cidadeCoord: [number,number]}){
   return (
     <div className="flex">
       <MapContainer
-        center={[-7.115, -34.864]} // João Pessoa
+        center={cidadeCoord}
         zoom={13}
         style={{ height: "300px", width: "350px", margin:"10px" }}
       >
@@ -164,13 +145,14 @@ type ComboboxDemoProps = {
 
 
 
-export function ComboboxDemo({
+export const ComboboxDemo = memo(function ComboboxDemo({
   cidades,
   disabled,
   handleCidadeFiltro,
-}: ComboboxDemoProps){
+}: ComboboxDemoProps) {
   const [open, setOpen] = useState(false)
   const [id, setId] = useState<number>()
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -187,7 +169,7 @@ export function ComboboxDemo({
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[18 0px] p-0">
+      <PopoverContent className="w-[180px] p-0">
         <Command>
           <CommandInput placeholder="Buscar cidade" className="h-9" />
           <CommandList>
@@ -196,7 +178,7 @@ export function ComboboxDemo({
               {cidades.map((cidade) => (
                 <CommandItem
                   key={cidade.id}
-                  value={cidade.id}
+                  value={cidade.nome}
                   onSelect={() => {
                     setId(cidade.id)
                     setOpen(false)
@@ -218,4 +200,4 @@ export function ComboboxDemo({
       </PopoverContent>
     </Popover>
   )
-}
+})

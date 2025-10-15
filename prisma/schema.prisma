@@ -22,3 +22,33 @@ model codeSession{
   codigo  String
   date    DateTime
 }
+
+model pontos{
+  id      String @id @default(auto())     @map("_id") @db.ObjectId
+  criadorId String
+  nome    String
+  local   String  
+  endereco  String
+  tipoApoio Int
+  data    String
+  hora    String
+  cidade  Int
+  descricao String
+  coordenada  String
+  status      Boolean
+  contato     String
+  instagram   String
+}
+
+model cidades {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  codigo_ibge   Int      @unique
+  nome          String
+  nome_completo String
+  uf            String
+  estado        String
+  regiao        String
+  coord         Float[]  // Array [longitude, latitude]
+  capital       Boolean
+  ddd           Int?
+}
