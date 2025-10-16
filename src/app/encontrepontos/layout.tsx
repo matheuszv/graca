@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "GRAÇA",
-  description: "GRAÇA - Gestão de Recursos de Alimentos Cuidados e Apoio",
+  description: "GRAÇA - Gestor de Rede de Apoio Comunitário e Assistência",
 };
 
 export default async function RootLayout({

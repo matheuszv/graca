@@ -23,11 +23,18 @@ export default async function getCidades() {
             data: mypoints.data.split(",")     
         }
     })
-
+    const cidades = await prisma.cidades.findMany()
+    const cidadesFormatadas = cidades.map((cidade) => {
+        return {
+          id: cidade.codigo_ibge,
+          nome: cidade.nome_completo
+        }
+    })
     return(
         <div className="dark">
             <ScrollableCardsList
                 pontosFiltrados={pontos}
+                cidades={cidadesFormatadas}
             />
         </div>
     )

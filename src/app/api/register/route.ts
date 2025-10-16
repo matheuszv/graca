@@ -28,6 +28,7 @@ export async function POST(req: Request) {
         telefone: data.telefone,
         email: data.email,
         senha: bcrypt.hashSync(data.senha, 10),
+        fotoPerfil: '',
       },
     })
 

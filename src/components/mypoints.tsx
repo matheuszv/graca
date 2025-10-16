@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import { Card } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -32,75 +33,33 @@ interface TipoApoio {
 
 interface ScrollableCardsListProps {
   pontosFiltrados: Ponto[]
+  cidades: any
 }
 
 export default function ScrollableCardsList({
-  pontosFiltrados = []
+  pontosFiltrados = [],
+  cidades
 }: ScrollableCardsListProps) {
 
   const router = useRouter()
-  // Dados de exemplo para demonstração
-  const pontosExemplo: Ponto[] = [
-    {
-      id: '1235122',
-      criadorId: '68e846583d5cfe9c2a8fc61c',
-      nome: "Ponto de Distribuição de Alimentos",
-      data: ["16/10/2025", "111"],
-      coordenada: [123,123],
-      hora: "09:00",
-      local: "Galpão Central",
-      endereco: "Av. Principal, 456",
-      cidade: 1,
-      instagram: '@insta',
-      contato: '',
-      status: true,
-      tipoApoio: 2,
-      descricao: "Distribuição de cestas básicas e alimentos não perecíveis para famílias cadastradas. Trazer documento de identificação.",
-    },
-    {
-      id: '1233122',
-      criadorId: '68e846583d5cfe9c2a8fc61c',
-      nome: "Ponto de Distribuição de Alimentos",
-      data: ["16/10/2025", "111"],
-      coordenada: [123,123],
-      hora: "09:00",
-      local: "Galpão Central",
-      endereco: "Av. Principal, 456",
-      cidade: 1,
-      instagram: '@insta',
-      contato: '',
-      status: true,
-      tipoApoio: 2,
-      descricao: "Distribuição de cestas básicas e alimentos não perecíveis para famílias cadastradas. Trazer documento de identificação.",
-    },
-    {
-      id: '1231222',
-      criadorId: '68e846583d5cfe9c2a8fc61c',
-      nome: "Ponto de Distribuição de Alimentos",
-      data: ["16/10/2025", "111"],
-      coordenada: [123,123],
-      hora: "09:00",
-      local: "Galpão Central",
-      endereco: "Av. Principal, 456",
-      cidade: 1,
-      instagram: '@insta',
-      contato: '',
-      status: true,
-      tipoApoio: 2,
-      descricao: "Distribuição de cestas básicas e alimentos não perecíveis para famílias cadastradas. Trazer documento de identificação.",
-    },
-  ]
 
   const tipoApoioExemplo: TipoApoio[] = [
     { id: 1, nome: "Apoio Psicológico" },
     { id: 2, nome: "Doação de Alimentos" },
     { id: 3, nome: "Atendimento Médico" }
   ]
-    const handleDelete = (id: string) => {
-        console.log("Deletando item com ID:", id);
-        // aqui você faz o fetch/axios para deletar no backend
+    const handleDelete = async (id: string) => {
+      const result = await fetch('/api/novoponto',{
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({id})
+      })
+      if(result.ok){
+        alert('PONTO REMOVIDO')
+        router.refresh()
+      }
     };
-  const pontos = pontosFiltrados.length > 0 ? pontosFiltrados : pontosExemplo
+  const pontos = pontosFiltrados
   const tiposList = tipoApoioExemplo
 
   return ( 
@@ -152,7 +111,7 @@ export default function ScrollableCardsList({
                     <div className="flex items-start gap-2">
                         <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
                         <div>
-                        <span className="font-semibold">Cidade:</span> {apoio.cidade}
+                        <span className="font-semibold">Cidade:</span> {cidades.find((cidade: { id: number; }) => apoio.cidade == cidade.id).nome}
                         </div>
                     </div>
 

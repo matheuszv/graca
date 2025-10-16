@@ -9,7 +9,7 @@ export default function Home() {
       <div className="flex flex-col gap-5 max-w-[490px] max-md:px-8">
         <div className="flex flex-col gap-2">
           <h1 className="text-white text-6xl font-bold">GRAÇA</h1>
-          <span className="text-[#A9A9B2] font-extralight text-[20px]">GRAÇA - Gestão de Recursos de Alimentos Cuidados e Apoio</span>
+          <span className="text-[#A9A9B2] font-extralight text-[20px]">GRAÇA - Gestor de Rede de Apoio Comunitário e Assistência</span>
         </div>
         <div>
           <Link href={'/login'}><button className="bg-red-500 border-red-500 border text-left px-6 py-3 rounded-lg mt-3 cursor-pointer hover:bg-transparent transition duration-500">Entrar para cadastrar pontos e interagir</button></Link>

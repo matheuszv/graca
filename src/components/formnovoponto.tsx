@@ -24,6 +24,7 @@ import {
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "./ui/command";
 import { cn } from "@/lib/utils";
 import SeletorDeCoordenadas from "./seletordecoordenadas";
+import { useRouter } from "next/navigation";
 
 interface cidades {
     nome: string;
@@ -51,6 +52,7 @@ export default function NovoPontoForm({
   // Apenas estados necessários para UI
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState<Date[]>(fields ? fields.data : []);
+  const router = useRouter()
 
   // Refs para capturar valores
   const formRef = useRef<HTMLFormElement>(null);
@@ -85,7 +87,9 @@ export default function NovoPontoForm({
     })
 
     if(result.ok){
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       fields ? alert("PONTO ALTERADO COM SUCESSO") : alert("PONTO CADASTRADO COM SUCESSO")
+      router.push('/meuspontos')
     } else {
       alert("Erro ao criar o ponto")
     }
@@ -96,10 +100,10 @@ export default function NovoPontoForm({
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 inset-0 justify-center flex flex-col p-4 rounded-lg w-[500px] max-md:w-[350px] z-[10] max-md:p-2">
         <Card className="border-border bg-card backdrop-blur-sm shadow-2xl max-md:gap-0.5">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-semibold tracking-tight text-foreground max-md:text-lg">
+            <CardTitle className="text-xl font-semibold tracking-tight text-foreground max-md:text-lg">
               Novo Ponto de Doação
             </CardTitle>
-            <p className="text-sm text-muted-foreground max-md:text-sx">
+            <p className="text-xs text-muted-foreground">
               Preencha as informações para cadastrar um novo ponto
             </p>
           </CardHeader>
@@ -110,7 +114,7 @@ export default function NovoPontoForm({
               className="space-y-4 max-md:space-y-2"
             >
               {/* NOME */}
-              <div className="space-y-2 max-md:space-y-1">
+              <div className="space-y-1 max-md:space-y-1">
                 <Label htmlFor="nome">Nome</Label>
                 <Input
                   id="nome"
@@ -124,7 +128,7 @@ export default function NovoPontoForm({
 
               {/* LOCAL + CIDADE */}
               <div className="flex items-center justify-between gap-4 max-md:gap-2">
-                <div className="space-y-2 max-md:space-y-1 flex-1">
+                <div className="space-y-1 max-md:space-y-1 flex-1">
                   <Label htmlFor="local">Local</Label>
                   <Input
                     id="local"
@@ -135,7 +139,7 @@ export default function NovoPontoForm({
                     required
                   />
                 </div>
-                <div className="space-y-2 max-md:space-y-1">
+                <div className="space-y-1 max-md:space-y-1">
                   <Label htmlFor="local">Cidade</Label>
                   <ComboboxDemo
                     cidades={cidadesFormatadas}
@@ -149,7 +153,7 @@ export default function NovoPontoForm({
               </div>
 
               {/* ENDEREÇO */}
-              <div className="space-y-2 max-md:space-y-1">
+              <div className="space-y-1 max-md:space-y-1">
                 <Label htmlFor="endereco">Endereço</Label>
                 <Input
                   id="endereco"
@@ -214,7 +218,7 @@ export default function NovoPontoForm({
 
               {/* TIPO APOIO */}
                <div className="flex gap-4 max-md:gap-2 ">
-                  <div className="space-y-2 max-md:space-y-1">
+                  <div className="space-y-1 max-md:space-y-1">
                     <Label htmlFor="tipoApoio">Tipo de Apoio</Label>
                     <Select name="tipoApoio" defaultValue={fields ? fields.tipoApoio.toString() : null}>
                       <SelectTrigger>
@@ -227,7 +231,7 @@ export default function NovoPontoForm({
                       </SelectContent>
                     </Select>
                   </div>
-                  <div className="flex-1 space-y-2 max-md:space-y-1">
+                  <div className="flex-1 space-y-1 max-md:space-y-1">
                     <Label>Contato</Label>
                     <Input
                       type="text"
@@ -237,7 +241,7 @@ export default function NovoPontoForm({
                       className="bg-background max-md:text-xs appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
                     />
                   </div>
-                  <div className="flex-1 space-y-2 max-md:space-y-1">
+                  <div className="flex-1 space-y-1 max-md:space-y-1">
                     <Label>Instagram</Label>
                     <Input
                       type="text"
@@ -251,7 +255,7 @@ export default function NovoPontoForm({
               
 
               {/* COORDENADAS */}
-              <div className="space-y-2 max-md:space-y-1">
+              <div className="space-y-1 max-md:space-y-1">
                 <Label>Localização no mapa</Label>
                 <SeletorDeCoordenadas
                   cidadeCoord={
@@ -273,7 +277,7 @@ export default function NovoPontoForm({
               </div>
 
               {/* DESCRIÇÃO */}
-              <div className="space-y-2 max-md:space-y-1">
+              <div className="space-y-1 max-md:space-y-1">
                 <Label htmlFor="descricao">Descrição</Label>
                 <Textarea
                   id="descricao"

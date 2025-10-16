@@ -34,7 +34,7 @@ const items = [
   },
   {
     title: "Meus pontos favoritos",
-    url: "/meusfavoritos",
+    url: "/favoritos",
     icon: MapPinCheck,
   },
   {
