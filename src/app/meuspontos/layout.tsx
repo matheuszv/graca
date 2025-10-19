@@ -23,7 +23,7 @@ export default async function RootLayout({
   
   return (
     <SidebarProvider>
-      <AppSidebar userName={user?.name} />
+      <AppSidebar userName={user?.name} fotoPerfil={user.fotoPerfil}/>
       <main>
         <SidebarTrigger />
         {children}

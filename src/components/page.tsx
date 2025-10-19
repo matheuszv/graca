@@ -10,12 +10,10 @@ import { Label } from '@/components/ui/label'
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    setIsLoading(true)
     const res = await fetch('/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -77,12 +75,11 @@ export default function LoginPage() {
 
               <Button 
                 type="submit" 
-                disabled={isLoading}
                 className="w-full h-11 bg-primary text-primary-foreground hover:bg-primary/90 font-medium transition-all hover:shadow-lg cursor-pointer"
               >
-                {isLoading ? 'Entrando...' : 'Entrar'}
+                Entrar
               </Button>
-              <Button type="button" className="justify-center cursor-pointer w-full" variant={"link"} onClick={()=>router.push('/recuperar')}>Esqueceu sua senha?</Button>
+              <Button type="button" className="justify-center cursor-pointer w-full" variant={"link"}>Esqueceu sua senha?</Button>
             </form>
           </CardContent>
         </Card>

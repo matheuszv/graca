@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 import { Home, MapPinHouse, MapPinCheck, Shield, Star, LogOut, Pencil, HeartHandshake, MapPinPlus } from "lucide-react"
 
@@ -7,13 +8,13 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 // Menu items.
 const items = [
@@ -49,8 +50,9 @@ const items = [
   },
 ]
 
-export function AppSidebar({userName}:{userName:string}) {
+export function AppSidebar({userName, fotoPerfil}:{userName:string; fotoPerfil: string;}) {
     const router = useRouter()
+    console.log(fotoPerfil)
 
     async function desconect(){
         const res = await fetch('/api/login', {
@@ -59,7 +61,7 @@ export function AppSidebar({userName}:{userName:string}) {
         })
         
         if (res.ok) {
-        alert('Login realizado com sucesso!')
+        alert('Desconectado realizado com sucesso!')
         router.push('/')
         } else {
         const data = await res.json()
@@ -75,25 +77,32 @@ export function AppSidebar({userName}:{userName:string}) {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="flex justify-between my-2">
-            <span className="text-base">{userName}</span> 
+        <div className="flex flex-col items-center my-4 relative">
+          <div className="relative">
+            <img
+              src={fotoPerfil}
+              alt="Foto de perfil"
+              className="h-16 w-16 rounded-full object-cover border-2 border-white cursor-pointer"
+            />
             <button
-                onClick={() => router.push(`/perfil`)}
-                className="flex items-center justify-center w-8 h-8 rounded-lg bg-gray-100 hover:bg-gray-400 transition-all shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-500 cursor-pointer"
-                aria-label="Editar perfil"
+              onClick={() => router.push('/perfil')}
+              className="absolute bottom-0 right-0 bg-gray-200 hover:bg-gray-300 rounded-full p-1 shadow cursor-pointer"
+              aria-label="Editar perfil"
             >
-                <Pencil className="w-4 h-4 text-gray-800" />
+              <Pencil className="w-4 h-4 text-gray-800" />
             </button>
-      </SidebarGroupLabel>
+          </div>
+          <span className="mt-2 text-base font-medium">{userName}</span>
+        </div>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

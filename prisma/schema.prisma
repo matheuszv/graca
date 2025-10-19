@@ -8,13 +8,14 @@ generator client {
 }
 
 model users {
-  id         String @id @default(auto()) @map("_id") @db.ObjectId
-  nome       String
-  cpf        String
-  email      String
-  telefone   String
-  senha      String
-  fotoPerfil String
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  nome        String
+  cpf         String
+  email       String
+  telefone    String
+  senha       String
+  fotoPerfil  String
+  comentarios comentarios[]
 }
 
 model codeSession {
@@ -25,21 +26,22 @@ model codeSession {
 }
 
 model pontos {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  criadorId  String
-  nome       String
-  local      String
-  endereco   String
-  tipoApoio  Int
-  data       String
-  hora       String
-  cidade     Int
-  descricao  String
-  coordenada String
-  status     Boolean
-  contato    String
-  instagram  String
-  favoritos  favoritos[]
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  criadorId   String
+  nome        String
+  local       String
+  endereco    String
+  tipoApoio   Int
+  data        String
+  hora        String
+  cidade      Int
+  descricao   String
+  coordenada  String
+  status      Boolean
+  contato     String
+  instagram   String
+  favoritos   favoritos[]
+  comentarios comentarios[]
 }
 
 model cidades {
@@ -60,4 +62,24 @@ model favoritos {
   user    String
   idPonto String
   ponto   pontos @relation(fields: [idPonto], references: [id])
+}
+
+model comentarios {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  pontoId    String
+  userId     String
+  comentario String
+  data       String
+
+  ponto pontos @relation(fields: [pontoId], references: [id])
+  user  users  @relation(fields: [userId], references: [id])
+}
+
+model PasswordResetCode {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  email     String
+  code      String
+  expiresAt DateTime
+  attempts  Int      @default(0)
+  createdAt DateTime @default(now())
 }

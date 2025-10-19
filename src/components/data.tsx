@@ -19,15 +19,72 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Input } from "@/components/ui/input"
+import { Select, ConfigProvider, theme } from "antd"
 
 import { ScrollArea } from "@/components/ui/scroll-area"
+import dynamic from "next/dynamic";
 
-export function Pontos({ cidades, apoioLista }:{cidades:any[], apoioLista: any}){
+const Mapa = dynamic(() => import("./mapa"), {
+  ssr: false, // 👈 ESSENCIAL
+});
+
+export function Pontos({ cidades, apoioLista, comentarios, favoritos }:{cidades:any[]; apoioLista: any; comentarios: any[]; favoritos: any []}){
 
   const [apoioList, setApoioList] = useState(apoioLista)
   const [isMapOpen, setIsMapOpen] = useState(false)
   const [search, setSearch] = useState('')
-  const [cidadeEscolhida, setCidadeEscolhida] = useState<number>(0)
+  const [cidadeEscolhida, setCidadeEscolhida] = useState(0)
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPoint, setSelectedPoint] = useState({
+      id: '0',
+      name: '',
+      data: '',
+      local: '',
+      endereco: '',
+      cidade: '',
+      contato: '',
+      tipoApoio: '',
+      descricao: '',
+      coordenada: [0.232, -0.12312] as [number, number],
+      favorito: false
+    });
+
+  function handleCloseModal(){
+    setIsModalOpen(false)
+    setSelectedPoint({
+      id: '0',
+      name: '',
+      data: '',
+      local: '',
+      endereco: '',
+      cidade: '',
+      contato: '',
+      tipoApoio: '',
+      descricao: '',
+      coordenada: [0,0],
+      favorito: false
+    })
+  }
+
+  const handleOpenModal = (point: any) => {
+    setSelectedPoint({
+      id: point.id,
+      name: point.name,
+      data: point.data,
+      local: point.local,
+      endereco: point.endereco,
+      cidade: point.cidade,
+      contato: point.contato,
+      tipoApoio: point.tipoApoio,
+      descricao: point.descricao,
+      coordenada: point.coordenada,
+      favorito: point.favorito
+    });
+    setIsModalOpen(true);
+  };
+
+
 
   const tipoApoio = [
     {nome: 'Alimentos', id: 1},
@@ -42,6 +99,7 @@ export function Pontos({ cidades, apoioLista }:{cidades:any[], apoioLista: any})
   )
 
   const handleCidadeFiltro = useCallback((cidadeId: number) => {
+
     setApoioList(apoioLista.filter((p: { cidade: number }) => p.cidade == cidadeId))
     setCidadeEscolhida(cidadeId)
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,10 +114,31 @@ export function Pontos({ cidades, apoioLista }:{cidades:any[], apoioLista: any})
               Escolha a cidade e busque pelo nome do local ou endereço.
             </p>
           <div className="flex justify-between">
-            <ComboboxDemo cidades={cidades} handleCidadeFiltro={handleCidadeFiltro} disabled={isMapOpen} />
-             <div className="relative w-[250px]">
+            <ConfigProvider
+              theme={{
+                algorithm:  theme.darkAlgorithm, // OU: theme.darkAlgorithm
+                token: {
+                  colorPrimary: '#b7e3fa',
+                },
+              }}
+            >
+            <Select
+              showSearch
+              onChange={(e) => handleCidadeFiltro(e)}
+              placeholder="Selecione a cidade"
+              filterOption={(input, option) =>
+                (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+              }
+              className="w-[120px]"
+              value={cidades[cidadeEscolhida]}
+              disabled={isMapOpen}
+              options={cidades}
+            />
+            </ConfigProvider>
+
+             <div className="relative w-[250px] bg-[#0a0a0a] rounded-lg">
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input placeholder="Buscar..." className="pl-8" onChange={(e) => setSearch(e.target.value)}/>
+              <Input placeholder="Buscar..." className="pl-8 " onChange={(e) => setSearch(e.target.value)}/>
             </div>
           </div>
         </div>
@@ -71,9 +150,24 @@ export function Pontos({ cidades, apoioLista }:{cidades:any[], apoioLista: any})
             <Label htmlFor="map-mode">Ver pontos pelo mapa <span className={`text-[10px] text-gray-400 font-extralight ${cidadeEscolhida==0 ? '' : 'hidden'} `}>(habilitado apenas com cidade filtrada)</span></Label>
           </div>
           {isMapOpen ? 
-          <Mapa lista={pontosFiltrados} cidadeCoord={cidades.find((cidade: any) => cidade.id == cidadeEscolhida).coord}/> : pontosFiltrados.map((apoio: any) => {
+          <Mapa
+            lista={pontosFiltrados}
+            cidadeCoord={cidades.find((cidade: any) => cidade.id == cidadeEscolhida).coord}
+          /> : pontosFiltrados.map((apoio: any) => {
             return ( 
-              <Card className="rounded-2xl p-4 bg-card mt-2 cursor-pointer hover:shadow-lg hover:border hover:border-zinc-400 transition duration-400" key={apoio.id}>
+              <Card  onClick={() => handleOpenModal({
+                  id: apoio.id,
+                  name: apoio.nome,
+                  data: `${apoio.data[0]} • ${apoio.hora}`,
+                  local: apoio.local,
+                  endereco: apoio.endereco,
+                  cidade: cidades.find((cidade: any) => cidade.id == apoio.cidade).nome,
+                  tipoApoio: tipoApoio.find((tipo: any)=> tipo.id == apoio.tipoApoio)?.nome,
+                  contato: apoio.contato,
+                  descricao: apoio.descricao,
+                  coordenada: apoio.coordenada,
+                  favorito: favoritos.some((point:any)=>point.idPonto == apoio.id)
+                })} className="rounded-2xl p-4 bg-card mt-2 cursor-pointer hover:shadow-lg hover:border hover:border-zinc-400 transition duration-400" key={apoio.id}>
                 <div className="flex justify-between items-center mb-2">
                   <h2 className="text-lg font-bold text-primary">{apoio.nome}</h2>
                   <span className="text-sm text-muted-foreground flex gap-2"><Calendar className="w-4 h-4 mt-0.5 flex-shrink-0" />{apoio.data[0]} • {apoio.hora}</span>
@@ -95,55 +189,27 @@ export function Pontos({ cidades, apoioLista }:{cidades:any[], apoioLista: any})
     </ScrollArea>
             
         </div>
+        {selectedPoint.id!='0' && (
+          <SupportPointModal
+            isOpen={isModalOpen}
+            onClose={()=>handleCloseModal()}
+            pointData={selectedPoint}
+            comentarios={comentarios.filter((comentario: any) => comentario.pontoId == selectedPoint.id)}
+          />
+        )}
       </div>
   )
 }
 
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
 import { Building2, Calendar, Check, ChevronsUpDown, MapPin, Search, Tag } from "lucide-react"
 import { Card } from "@/components/ui/card"
-
-const customIcon = new L.Icon({
-  iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-});
-
-
-export function Mapa({lista, cidadeCoord}:{lista:any[], cidadeCoord: [number,number]}){
-  return (
-    <div className="flex">
-      <MapContainer
-        center={cidadeCoord}
-        zoom={13}
-        style={{ height: "300px", width: "350px", margin:"10px" }}
-      >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        />
-        {lista.map(apoio => {
-          return(
-            <Marker key={apoio.coordenada[0]} position={apoio.coordenada} icon={customIcon}>
-              <Popup>{apoio.nome}</Popup>
-            </Marker>
-          )
-        })}
-        
-      </MapContainer>
-    </div>
-  )
-}
+import SupportPointModal from "./modalPontos"
 
 type ComboboxDemoProps = {
   cidades: any[]; 
   disabled: boolean;
   handleCidadeFiltro: (cidade: number) => void; // Ajuste o tipo conforme o que você espera para a função
 };
-
-
 
 export const ComboboxDemo = memo(function ComboboxDemo({
   cidades,

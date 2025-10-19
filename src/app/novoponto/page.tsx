@@ -13,6 +13,8 @@ interface cidades {
     coord: [number, number];
     capital: boolean;
     ddd: number | null;
+    label: string;
+    value: number;
 }
 
 export default async function getCidades() {
@@ -20,7 +22,10 @@ export default async function getCidades() {
 
     const cidades: cidades[] = result.map(cidade => ({
         ...cidade,
-        coord: [cidade.coord[1], cidade.coord[0]] as [number, number]
+        coord: [cidade.coord[1], cidade.coord[0]] as [number, number],
+        value: cidade.codigo_ibge,
+        label: cidade.nome_completo,
+
     }));
 
     const cidadesFormatadas = cidades.map((cidade:cidades) => {

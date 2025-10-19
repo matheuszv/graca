@@ -24,7 +24,7 @@ export async function POST(req: Request) {
 
   // Gera JWT
   const token = jwt.sign(
-    { userId: user.id, email: user.email, name: user.nome },
+    { userId: user.id, email: user.email, name: user.nome, fotoPerfil: user.fotoPerfil },
     process.env.JWT_SECRET!,
     { expiresIn: '7d' }
   )

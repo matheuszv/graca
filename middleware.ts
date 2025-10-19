@@ -6,12 +6,13 @@ export function middleware(req: NextRequest) {
   const token = req.cookies.get('token')?.value
 
   if (req.nextUrl.pathname.startsWith('/pontos')) {
-    if (!token) return NextResponse.redirect(new URL('/login', req.url))
+    if (!token) return new NextResponse('Unauthorized', { status: 401 })
     try {
       jwt.verify(token, process.env.JWT_SECRET!)
       return NextResponse.next()
     } catch {
-      return NextResponse.redirect(new URL('/login', req.url))
+      return new NextResponse('Unauthorized', { status: 401 })
+
     }
   }
 

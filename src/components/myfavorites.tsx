@@ -6,7 +6,7 @@ import { MapPin, Building2, Tag, Calendar, Star } from 'lucide-react'
 import { useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useRouter } from 'next/navigation';
+import SupportPointModal from './modalPontos';
 
 interface TipoApoio {
   id: number
@@ -16,35 +16,60 @@ interface TipoApoio {
 interface ScrollableCardsListProps {
   pontosFiltrados: any
   cidades: any
+  comentarios: any
 }
 
 export default function MeusFavoritos({
   pontosFiltrados = [],
-  cidades
+  cidades,
+  comentarios
 }: ScrollableCardsListProps) {
 
-  const router = useRouter()
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedPoint, setSelectedPoint] = useState({
+      id: '0',
+      name: '',
+      data: '',
+      local: '',
+      endereco: '',
+      cidade: '',
+      contato: '',
+      tipoApoio: '',
+      descricao: '',
+      coordenada: [0.232, -0.12312] as [number, number],
+      favorito: false
+    });
 
-  const tipoApoioExemplo: TipoApoio[] = [
-    { id: 1, nome: "Apoio Psicológico" },
-    { id: 2, nome: "Doação de Alimentos" },
-    { id: 3, nome: "Atendimento Médico" }
-  ]
-
-  const handleRemoveFavorite = async (id: string) => {
-    const result = await fetch('/api/favoritos', {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id })
+  function handleCloseModal(){
+    setIsModalOpen(false)
+    setSelectedPoint({
+      id: '0',
+      name: '',
+      data: '',
+      local: '',
+      endereco: '',
+      cidade: '',
+      contato: '',
+      tipoApoio: '',
+      descricao: '',
+      coordenada: [0,0],
+      favorito: false
     })
-    if (result.ok) {
-      alert('REMOVIDO DOS FAVORITOS')
-      router.refresh()
-    }
+  }
+
+  const handleOpenModal = (point: any) => {
+    setSelectedPoint({...point});
+    setIsModalOpen(true);
   };
 
+
+  const tipoApoio: TipoApoio[] = [
+    { id: 1, nome: "Alimentos" },
+    { id: 2, nome: "Roupa" },
+    { id: 3, nome: "Higiene" }
+  ]
+
   const pontos = pontosFiltrados
-  const tiposList = tipoApoioExemplo
 
   return ( 
     <div className="flex-1 justify-center items-center">
@@ -54,21 +79,30 @@ export default function MeusFavoritos({
         <ScrollArea className="h-[470px] w-[340px] p-3">
           <div className="space-y-2">
             {pontos.map((apoio: any) => {
-              const tipo = tiposList.find((t) => t.id === apoio.tipoApoio)
+              const tipo = tipoApoio.find((t) => t.id === apoio.tipoApoio)
 
               return (
                 <Card 
-                  className="rounded-2xl p-3 bg-card hover:shadow-lg overflow-x-hidden" 
+                  className="rounded-2xl p-3 bg-card hover:shadow-lg overflow-x-hidden cursor-pointer" 
                   key={apoio.id}
+                  onClick={() => handleOpenModal({
+                    id: apoio.id,
+                    name: apoio.nome,
+                    data: `${apoio.data[0]} • ${apoio.hora}`,
+                    local: apoio.local,
+                    endereco: apoio.endereco,
+                    cidade: cidades.find((cidade: any) => cidade.id == apoio.cidade).nome,
+                    tipoApoio: tipoApoio.find((tipo: any)=> tipo.id == apoio.tipoApoio)?.nome,
+                    contato: apoio.contato,
+                    descricao: apoio.descricao,
+                    coordenada: apoio.coordenada.split(',').map((text: string)=> {return parseFloat(text)}) as [number, number],
+                    favorito: true
+                  })}
                 >
                   <div className="flex justify-between items-bottom mb-3">
                     <h2 className="text-lg font-bold text-primary">{apoio.nome}</h2>
                     <div className="flex justify-between items-center gap-0.5 text-sm text-musted-foreground whitespace-nowrap">
-                      <ModalRemoveFavorite 
-                        id={apoio.id} 
-                        nome={apoio.nome} 
-                        onConfirm={handleRemoveFavorite}
-                      />
+                      <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
                     </div>
                   </div>
 
@@ -120,6 +154,14 @@ export default function MeusFavoritos({
           </div>
         </ScrollArea>
       </div>
+      {selectedPoint.id!='0' && (
+        <SupportPointModal
+                  isOpen={isModalOpen}
+                  onClose={()=>handleCloseModal()}
+                  pointData={selectedPoint}
+                  comentarios={comentarios.filter((comentario: any) => comentario.pontoId == selectedPoint.id)}
+          />
+      )}
     </div>
   )
 }
@@ -142,7 +184,6 @@ export function ModalRemoveFavorite({ id, nome, onConfirm }: ModalRemoveFavorite
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="ghost" size="sm" className="flex items-center gap-2 cursor-pointer">
-          <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-sm">

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use server'
 import prisma from "@/lib/prisma"
-import { Pontos } from "../../components/data"
+import { PontosPublic } from "@/components/pontosSemLogin"
 
 export default async function getCidades() {
     const result = await prisma.cidades.findMany()
@@ -17,10 +17,10 @@ export default async function getCidades() {
     const pontos = await prisma.pontos.findMany()
 
     const apoioLista = pontos.map((apoio: any)=>{
-        return {...apoio, coordenada: apoio.coordenada.split(",") as [number, number]}
+        return {...apoio, coordenada: apoio.coordenada.split(",") as [number, number], data: apoio.data.split(",")}
     })
 
     return (
-        <Pontos cidades={cidadesFormatadas} apoioLista={apoioLista} />
+        <PontosPublic apoioLista={apoioLista} cidades={cidadesFormatadas}/>
     )
 }

@@ -10,7 +10,7 @@ import { Calendar } from "@/components/ui/calendar"
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import {
-  Select,
+  Select as SelectShadcn,
   SelectTrigger,
   SelectValue,
   SelectContent,
@@ -25,6 +25,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { cn } from "@/lib/utils";
 import SeletorDeCoordenadas from "./seletordecoordenadas";
 import { useRouter } from "next/navigation";
+import { ConfigProvider, Select, theme } from "antd";
 
 interface cidades {
     nome: string;
@@ -37,6 +38,8 @@ interface cidades {
     coord: [number, number];
     capital: boolean;
     ddd: number | null;
+    label: string,
+    value: number,
 }
 
 
@@ -63,7 +66,6 @@ export default function NovoPontoForm({
     e.preventDefault();
 
     if (!formRef.current) return;
-    // Captura todos os dados do formulário de uma vez
     const formData = new FormData(formRef.current);
 
     const dados = {
@@ -141,14 +143,27 @@ export default function NovoPontoForm({
                 </div>
                 <div className="space-y-1 max-md:space-y-1">
                   <Label htmlFor="local">Cidade</Label>
-                  <ComboboxDemo
-                    cidades={cidadesFormatadas}
-                    handleCidadeFiltro={(id) => {
-                      setCidadeSelecionada(id); // Atualiza o estado (re-render)
-                    }}
-                    escolhida={cidadeSelecionada}
-                    disabled={false}
-                  />
+                  <ConfigProvider
+                      theme={{
+                        algorithm:  theme.darkAlgorithm, // OU: theme.darkAlgorithm
+                        token: {
+                          colorPrimary: '#b7e3fa',
+                        },
+                      }}
+                    >
+                    <Select
+                      showSearch
+                      onChange={(e) => setCidadeSelecionada(e)}
+                      placeholder="Selecione a cidade"
+                      filterOption={(input, option) =>
+                        (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                      }
+                      defaultValue={cidadeSelecionada!=0 ? cidades.find((cidade:any)=> cidade.value == cidadeSelecionada) : null}
+                      className="w-[150px]"
+                      value={cidades[cidadeSelecionada]}
+                      options={cidades}
+                    />
+                    </ConfigProvider>
                 </div>
               </div>
 
@@ -220,7 +235,7 @@ export default function NovoPontoForm({
                <div className="flex gap-4 max-md:gap-2 ">
                   <div className="space-y-1 max-md:space-y-1">
                     <Label htmlFor="tipoApoio">Tipo de Apoio</Label>
-                    <Select name="tipoApoio" defaultValue={fields ? fields.tipoApoio.toString() : null}>
+                    <SelectShadcn name="tipoApoio" defaultValue={fields ? fields.tipoApoio.toString() : null}>
                       <SelectTrigger>
                         <SelectValue placeholder="Selecione..." />
                       </SelectTrigger>
@@ -229,7 +244,7 @@ export default function NovoPontoForm({
                         <SelectItem value="2">Roupas</SelectItem>
                         <SelectItem value="3">Higiene</SelectItem>
                       </SelectContent>
-                    </Select>
+                    </SelectShadcn>
                   </div>
                   <div className="flex-1 space-y-1 max-md:space-y-1">
                     <Label>Contato</Label>

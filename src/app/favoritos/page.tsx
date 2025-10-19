@@ -30,9 +30,22 @@ export default async function getCidades() {
           nome: cidade.nome_completo
         }
     })
+
+    const comentarios = await prisma.comentarios.findMany({
+        include: {
+            user: {
+                select: {
+                    id: true,
+                    nome: true,
+                    fotoPerfil: true
+                }
+            }
+        },
+    })
+
     return(
         <div className="dark">
-            <MeusFavoritos pontosFiltrados={pontosFormatados} cidades={cidadesFormatadas} />
+            <MeusFavoritos pontosFiltrados={pontosFormatados} cidades={cidadesFormatadas} comentarios={comentarios}/>
         </div>
     )
 }

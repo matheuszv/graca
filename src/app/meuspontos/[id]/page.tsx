@@ -15,6 +15,8 @@ interface cidades {
     coord: [number, number];
     capital: boolean;
     ddd: number | null;
+    value: number;
+    label: string;
 }
 
 function stringParaDate(dataStr: string): Date {
@@ -44,7 +46,9 @@ export default async function getCidades({ params }: { params: { id: string } })
 
     const cidades: cidades[] = result.map(cidade => ({
         ...cidade,
-        coord: [cidade.coord[1], cidade.coord[0]] as [number, number]
+        coord: [cidade.coord[1], cidade.coord[0]] as [number, number],
+        value: cidade.codigo_ibge,
+        label: cidade.nome_completo
     }));
 
     const cidadesFormatadas = cidades.map((cidade:cidades) => {

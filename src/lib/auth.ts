@@ -6,6 +6,7 @@ interface JwtPayload {
   name: string
   userId: number
   email: string
+  fotoPerfil: string
 }
 
 export async function getAuthUser() {
