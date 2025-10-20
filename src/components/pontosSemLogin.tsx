@@ -8,7 +8,13 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { ComboboxDemo } from "./data";
-import  MapaClient  from "./mapa";
+import dynamic from 'next/dynamic'
+
+// Importação dinâmica — garante que só roda no navegador
+const MapaClient = dynamic(() => import('./mapa'), {
+  ssr: false,
+})
+
 
 export function PontosPublic({ cidades, apoioLista }: { cidades: any[]; apoioLista: any[] }) {
   const [apoioList, setApoioList] = useState(apoioLista);
