@@ -45,11 +45,9 @@ interface cidades {
 
 export default function NovoPontoForm({
   cidades,
-  cidadesFormatadas,
   fields,
 }: {
   cidades: cidades[];
-  cidadesFormatadas: any[];
   fields: any;
 }) {
   // Apenas estados necessários para UI

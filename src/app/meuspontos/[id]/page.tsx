@@ -50,14 +50,7 @@ export default async function getCidades({ params }: { params: { id: string } })
         value: cidade.codigo_ibge,
         label: cidade.nome_completo
     }));
-
-    const cidadesFormatadas = cidades.map((cidade:cidades) => {
-        return {
-          id: cidade.codigo_ibge,
-          nome: cidade.nome_completo
-        }
-    })
-
+    
     const pontos = {
         ...mypoints,
         coordenada: mypoints?.coordenada.split(",").map((coord)=> parseFloat(coord)) as [number, number],
@@ -66,7 +59,7 @@ export default async function getCidades({ params }: { params: { id: string } })
 
     return(
         <div>
-            <NovoPontoForm fields={pontos} cidades={cidades} cidadesFormatadas={cidadesFormatadas} />
+            <NovoPontoForm fields={pontos} cidades={cidades} />
         </div>
     )
 }

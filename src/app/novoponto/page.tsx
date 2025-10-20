@@ -28,14 +28,7 @@ export default async function getCidades() {
 
     }));
 
-    const cidadesFormatadas = cidades.map((cidade:cidades) => {
-        return {
-          id: cidade.codigo_ibge,
-          nome: cidade.nome_completo
-        }
-    })
-
     return (
-        <NovoPontoForm cidades={cidades} cidadesFormatadas={cidadesFormatadas} fields={null}/>
+        <NovoPontoForm cidades={cidades}  fields={null}/>
     )
 }
