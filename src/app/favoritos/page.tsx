@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use server'
 import MeusFavoritos from "@/components/myfavorites";
 import { getAuthUser } from "@/lib/auth";
@@ -21,7 +22,16 @@ export default async function getCidades() {
             }
         })
 
-    const pontosFormatados = favoritosComPontos.map((ponto)=> {return ponto.ponto})
+    const pontos = favoritosComPontos.map((ponto)=> {return ponto.ponto})
+
+    const pontosFormatados = pontos.map((apoio: any) => {
+        return {
+            ...apoio,
+            data: apoio.data
+            .split(",")
+        }
+    })
+
     
     const cidades = await prisma.cidades.findMany()
     const cidadesFormatadas = cidades.map((cidade) => {

@@ -57,6 +57,11 @@ export default function MeusFavoritos({
     })
   }
 
+  
+    const fimDoDia = new Date()
+    fimDoDia.setHours(0,0,0,0)
+
+
   const handleOpenModal = (point: any) => {
     setSelectedPoint({...point});
     setIsModalOpen(true);
@@ -88,7 +93,7 @@ export default function MeusFavoritos({
                   onClick={() => handleOpenModal({
                     id: apoio.id,
                     name: apoio.nome,
-                    data: `${apoio.data[0]} • ${apoio.hora}`,
+                    data: `${apoio.data.length > 0 ? apoio.data.join(", ") : 'Em breve'} • ${apoio.hora}`,
                     local: apoio.local,
                     endereco: apoio.endereco,
                     cidade: cidades.find((cidade: any) => cidade.id == apoio.cidade).nome,
@@ -110,7 +115,12 @@ export default function MeusFavoritos({
                     <div className="flex items-start gap-2">
                       <Calendar className="w-4 h-4 mt-0.5 flex-shrink-0" />
                       <div>
-                        <span>{apoio.data?.split(",")[0]} • {apoio.hora}</span>
+                        <span>{apoio.data
+                        .filter((d: string) => {
+                            const [dia, mes, ano] = d.split("/").map(Number)
+                            const dataFormatada = new Date(ano, mes - 1, dia) // mês começa em 0 no JS
+                            return dataFormatada.getTime() >= fimDoDia.getTime()
+                        })[0] ?? 'Em breve'} • {apoio.hora}</span>
                       </div>
                     </div>
                         

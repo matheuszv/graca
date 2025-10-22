@@ -58,7 +58,7 @@ export default function NovoPontoForm({
   // Refs para capturar valores
   const formRef = useRef<HTMLFormElement>(null);
   const coordenadaRef = useRef<[number, number] | null>(fields ? fields.coordenada : null);
-  const [cidadeSelecionada, setCidadeSelecionada] = useState<number>(fields ? fields.cidade : 0);
+  const [cidadeSelecionada, setCidadeSelecionada] = useState<number>(fields ? fields.cidade : null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

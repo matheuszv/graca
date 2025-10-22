@@ -34,6 +34,10 @@ export function Pontos({ cidades, apoioLista, comentarios, favoritos }:{cidades:
   const [isMapOpen, setIsMapOpen] = useState(false)
   const [search, setSearch] = useState('')
   const [cidadeEscolhida, setCidadeEscolhida] = useState(0)
+  
+  const fimDoDia = new Date()
+  fimDoDia.setHours(0, 0, 0, 0)
+
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPoint, setSelectedPoint] = useState({
@@ -158,7 +162,7 @@ export function Pontos({ cidades, apoioLista, comentarios, favoritos }:{cidades:
               <Card  onClick={() => handleOpenModal({
                   id: apoio.id,
                   name: apoio.nome,
-                  data: `${apoio.data[0]} • ${apoio.hora}`,
+                  data: `${apoio.data.join(", ")} • ${apoio.hora}`,
                   local: apoio.local,
                   endereco: apoio.endereco,
                   cidade: cidades.find((cidade: any) => cidade.id == apoio.cidade).nome,
@@ -170,7 +174,13 @@ export function Pontos({ cidades, apoioLista, comentarios, favoritos }:{cidades:
                 })} className="rounded-2xl p-4 bg-card mt-2 cursor-pointer hover:shadow-lg hover:border hover:border-zinc-400 transition duration-400" key={apoio.id}>
                 <div className="flex justify-between items-center mb-2">
                   <h2 className="text-lg font-bold text-primary">{apoio.nome}</h2>
-                  <span className="text-sm text-muted-foreground flex gap-2"><Calendar className="w-4 h-4 mt-0.5 flex-shrink-0" />{apoio.data[0]} • {apoio.hora}</span>
+                  <span className="text-sm text-muted-foreground flex gap-2">
+                    <Calendar className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                    {apoio.data.filter((d: string) => {
+                      const [dia, mes, ano] = d.split("/").map(Number)
+                      const dataFormatada = new Date(ano, mes - 1, dia) 
+                      return dataFormatada.getTime() >= fimDoDia.getTime()
+                    })[0] ?? 'Em breve' } • {apoio.hora}</span>
                 </div>
 
                 <div className="space-y-1 text-sm text-muted-foreground mb-3">

@@ -18,7 +18,13 @@ export async function getCidades() {
     return {
       ...apoio,
       coordenada: apoio.coordenada.split(",") as [number, number],
-      data: apoio.data.split(","),
+      data: apoio.data
+        .split(",")
+        .filter((d: string) => {
+          const [dia, mes, ano] = d.split("/").map(Number)
+          const dataFormatada = new Date(ano, mes - 1, dia) // mês começa em 0 no JS
+          return dataFormatada.getTime() >= Date.now()
+        }),
     }
   })
 

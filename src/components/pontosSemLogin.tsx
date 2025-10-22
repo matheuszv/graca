@@ -87,7 +87,7 @@ export function PontosPublic({ cidades, apoioLista }: { cidades: any[]; apoioLis
                   <h2 className="text-lg font-bold text-primary">{apoio.nome}</h2>
                   <span className="text-sm text-muted-foreground flex gap-2">
                     <Calendar className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                    {apoio.data[0]} • {apoio.hora}
+                    {apoio.data.length > 0 ? apoio.data[0] : 'Em breve'} • {apoio.hora}
                   </span>
                 </div>
 
