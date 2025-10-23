@@ -165,7 +165,7 @@ export function Pontos({ cidades, apoioLista, comentarios, favoritos }:{cidades:
                   data: `${apoio.data.join(", ")} • ${apoio.hora}`,
                   local: apoio.local,
                   endereco: apoio.endereco,
-                  cidade: cidades.find((cidade: any) => cidade.id == apoio.cidade).nome,
+                  cidade: cidades.find((cidade: any) => cidade.id == apoio.cidade).label,
                   tipoApoio: tipoApoio.find((tipo: any)=> tipo.id == apoio.tipoApoio)?.nome,
                   contato: apoio.contato,
                   descricao: apoio.descricao,
