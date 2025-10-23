@@ -52,7 +52,7 @@ export default function MapaClient({
     <div className="flex">
       <MapContainer
         center={cidadeCoord}
-        zoom={13}
+        zoom={12}
         style={{ height: "300px", width: "350px", margin: "10px" }}
       >
         <TileLayer
