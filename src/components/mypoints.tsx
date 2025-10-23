@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 interface Ponto {
     tipoApoio: number
@@ -55,8 +56,10 @@ export default function ScrollableCardsList({
         body: JSON.stringify({id})
       })
       if(result.ok){
-        alert('PONTO REMOVIDO')
+        toast.success('Ponto removido!')
         router.refresh()
+      } else {
+        toast.error("Erro ao remover o ponto!")
       }
     };
   const pontos = pontosFiltrados

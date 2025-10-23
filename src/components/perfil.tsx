@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import { Eye, EyeOff, KeyRound, Lock, Phone, User } from 'lucide-react'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from './ui/dialog'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 
 export default function EditProfileForm({ userData }: {userData: any}) {
@@ -26,12 +27,12 @@ export default function EditProfileForm({ userData }: {userData: any}) {
   const handleSubmit = async () => {
     // Validação de senha
     if (senha && senha !== confirmarSenha) {
-      alert('As senhas não coincidem!')
+      toast.error('As senhas não coincidem!')
       return
     }
 
     if (senha && senha.length < 6) {
-      alert('A senha deve ter no mínimo 6 caracteres')
+      toast.error('A senha deve ter no mínimo 6 caracteres')
       return
     }
 
@@ -48,10 +49,10 @@ export default function EditProfileForm({ userData }: {userData: any}) {
 
       const data = await result.json()
       if(result.ok){
-        alert('PERFIL EDITADO')
+        toast.success('Dados do perfil editados com sucesso!')
         router.refresh()
       } else {
-        alert(data.error)
+        toast.error(data.error)
       }
   }
 
@@ -63,8 +64,10 @@ export default function EditProfileForm({ userData }: {userData: any}) {
         body: JSON.stringify({urlFoto})
       })
       if(result.ok){
-        alert('FOTO EDITADA')
+        toast.success('Foto de perfil enviada com sucesso!')
         router.refresh()
+      } else {
+        toast.error('Erro ao enviar a foto de perfil!')
       }
   }
 

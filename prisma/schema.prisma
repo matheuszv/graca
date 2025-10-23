@@ -61,7 +61,7 @@ model favoritos {
   id      String @id @default(auto()) @map("_id") @db.ObjectId
   user    String
   idPonto String
-  ponto   pontos @relation(fields: [idPonto], references: [id])
+  ponto   pontos @relation(fields: [idPonto], references: [id], onDelete: Cascade)
 }
 
 model comentarios {
@@ -71,7 +71,7 @@ model comentarios {
   comentario String
   data       String
 
-  ponto pontos @relation(fields: [pontoId], references: [id])
+  ponto pontos @relation(fields: [pontoId], references: [id], onDelete: Cascade)
   user  users  @relation(fields: [userId], references: [id])
 }
 

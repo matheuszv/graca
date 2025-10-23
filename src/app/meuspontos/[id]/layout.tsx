@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { redirect } from 'next/navigation'
 import { getAuthUser } from "@/lib/auth";
 import { SidebarProvider,  } from "@/components/ui/sidebar"
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "GRAÇA",
@@ -23,6 +24,13 @@ export default async function RootLayout({
   return (
     <SidebarProvider>
       <main>
+        <Toaster
+          position="top-right"
+          richColors={true}
+          toastOptions={{
+            style: { borderRadius: "8px" },
+          }}
+        />
         {children}
       </main>
     </SidebarProvider>

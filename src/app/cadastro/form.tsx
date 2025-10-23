@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import ResendCodeButton from "@/components/buttonResend";
+import { toast } from 'sonner'
 
 export default function CadastroPasso1() {
   const router = useRouter()
@@ -36,7 +37,7 @@ export default function CadastroPasso1() {
         setPassos(passo+1)
       } else {
         const error = await res.json()
-        alert(error.error || 'Erro ao cadastrar')
+        toast.error(error.error || 'Erro ao cadastrar')
       }
 
     } catch (err: any) {
@@ -59,11 +60,11 @@ export default function CadastroPasso1() {
         router.push('/login')
       } else {
         const error = await res.json()
-        alert(error.error || 'Erro ao cadastrar')
+        toast.error(error.error || 'Erro ao cadastrar')
       }
     } catch (err) {
       console.error('Erro no fetch:', err)
-      alert('Erro inesperado')
+      toast.error('Erro inesperado')
     }
   }
 

@@ -15,6 +15,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from './ui/textarea';
 import MapaClient from './mapa';
+import { toast } from 'sonner';
 
 
 type PointData = {
@@ -72,10 +73,12 @@ export default function SupportPointModal({
     })
 
     if(result.ok){
-      alert('Favoritou com sucesso')
+      if(!isFavorito) toast.success("Ponto favoritado com sucesso!")
+        else toast.warning("Ponto removido do favorito!")
+      
       setIsFavorito(!isFavorito)
     } else {
-      alert('erro ao favoritar')
+      toast.error('Erro')
     }
   }
 
@@ -95,12 +98,12 @@ export default function SupportPointModal({
     const comentario = await result.json()
 
     if(result.ok){
-      alert('Comentou com sucesso')
+      toast.success("Comentário enviado!")
       setComments([...comments,comentario])
       
       setNewComment('');
     } else {
-      alert('erro ao comentar')
+      toast.error("Erro ao comentars")
     }
 
     }

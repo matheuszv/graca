@@ -26,6 +26,7 @@ import { cn } from "@/lib/utils";
 import SeletorDeCoordenadas from "./seletordecoordenadas";
 import { useRouter } from "next/navigation";
 import { ConfigProvider, Select, theme } from "antd";
+import { toast } from 'sonner'
 
 interface cidades {
     nome: string;
@@ -88,10 +89,10 @@ export default function NovoPontoForm({
 
     if(result.ok){
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      fields ? alert("PONTO ALTERADO COM SUCESSO") : alert("PONTO CADASTRADO COM SUCESSO")
+      fields ? toast.success("Ponto alterado com sucesso!") : toast.success("Ponto cadastrado com sucesso!")
       router.push('/meuspontos')
     } else {
-      alert("Erro ao criar o ponto")
+      toast.error("Erro ao criar o ponto!")
     }
   };
 

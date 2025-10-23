@@ -33,7 +33,7 @@ export function Pontos({ cidades, apoioLista, comentarios, favoritos }:{cidades:
   const [apoioList, setApoioList] = useState(apoioLista)
   const [isMapOpen, setIsMapOpen] = useState(false)
   const [search, setSearch] = useState('')
-  const [cidadeEscolhida, setCidadeEscolhida] = useState(0)
+  const [cidadeEscolhida, setCidadeEscolhida] = useState(-1)
   
   const fimDoDia = new Date()
   fimDoDia.setHours(0, 0, 0, 0)
@@ -149,7 +149,7 @@ export function Pontos({ cidades, apoioLista, comentarios, favoritos }:{cidades:
 
       <ScrollArea className="h-[450px] py-3">
         <div className="flex items-center space-x-2">
-            <Switch id='map-mode' checked={isMapOpen} disabled={cidadeEscolhida==0}
+            <Switch id='map-mode' checked={isMapOpen} disabled={cidadeEscolhida==-1}
               onCheckedChange={(checked) => setIsMapOpen(checked)} />
             <Label htmlFor="map-mode">Ver pontos pelo mapa <span className={`text-[10px] text-gray-400 font-extralight ${cidadeEscolhida==0 ? '' : 'hidden'} `}>(habilitado apenas com cidade filtrada)</span></Label>
           </div>

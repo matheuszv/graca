@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/sidebar"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { toast } from "sonner"
 
 // Menu items.
 const items = [
@@ -61,11 +62,11 @@ export function AppSidebar({userName, fotoPerfil}:{userName:string; fotoPerfil: 
         })
         
         if (res.ok) {
-        alert('Desconectado realizado com sucesso!')
+        toast.success('Desconectado realizado com sucesso!')
         router.push('/')
         } else {
         const data = await res.json()
-        alert(data.error || 'Erro ao desconectar')
+        toast.error(data.error || 'Erro ao desconectar')
         }
     }
 

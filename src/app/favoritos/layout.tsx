@@ -4,6 +4,8 @@ import { redirect } from 'next/navigation'
 import { getAuthUser } from "@/lib/auth";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
+import { Toaster } from "sonner";
+
 
 export const metadata: Metadata = {
   title: "GRAÇA",
@@ -25,7 +27,14 @@ export default async function RootLayout({
     <SidebarProvider>
       <AppSidebar userName={user?.name} fotoPerfil={user.fotoPerfil}/>
       <main>
-        <SidebarTrigger />
+        <SidebarTrigger /> 
+        <Toaster
+          position="top-right"
+          richColors={true}
+          toastOptions={{
+            style: { borderRadius: "8px" },
+          }}
+        />
         {children}
       </main>
     </SidebarProvider>

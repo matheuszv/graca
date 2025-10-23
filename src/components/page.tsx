@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
+import { toast } from 'sonner'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -21,11 +22,11 @@ export default function LoginPage() {
     })
 
     if (res.ok) {
-      alert('Login realizado com sucesso!')
+      toast.success('Login realizado com sucesso!')
       router.push('/pontos')
     } else {
       const data = await res.json()
-      alert(data.error || 'Erro no login')
+      toast.error(data.error || 'Erro no login')
     }
   }
 

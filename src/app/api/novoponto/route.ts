@@ -29,6 +29,9 @@ export async function PUT(req: Request) {
   const id = dados.id;
   delete dados.id;
   try {
+    await prisma.comentarios.deleteMany({
+      where: { pontoId: dados.id }
+    });
 
   const result = await prisma.pontos.updateMany({
     data: {...dados, coordenada: dados.coordenada.join(","), criadorId: user?.userId},
