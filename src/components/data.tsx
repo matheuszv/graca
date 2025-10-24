@@ -186,7 +186,7 @@ export function Pontos({ cidades, apoioLista, comentarios, favoritos }:{cidades:
                 <div className="space-y-1 text-sm text-muted-foreground mb-3">
                   <p className="flex gap-2"><span className="font-semibold flex gap-2"><Building2 className="w-4 h-4 mt-0.5 flex-shrink-0" /> Local:</span> {apoio.local}</p>
                   <p className="flex gap-2"><span className="font-semibold flex gap-2"><MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" /> Endereço:</span> {apoio.endereco}</p>
-                  <p className="flex gap-2"><span className="font-semibold flex gap-2"><MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />Cidade:</span> {cidades.find((cidade: any) => cidade.id == apoio.cidade).nome}</p>
+                  <p className="flex gap-2"><span className="font-semibold flex gap-2"><MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />Cidade:</span> {cidades.find((cidade: any) => cidade.id == apoio.cidade).label}</p>
                   <p className="flex gap-2"><span className="font-semibold flex gap-2"><Tag className="w-4 h-4 mt-0.5 flex-shrink-0" />Tipo de apoio:</span> {tipoApoio.find((tipo: any)=> tipo.id == apoio.tipoApoio)?.nome}</p>
                 </div>
 
