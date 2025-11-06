@@ -28,7 +28,8 @@ export default function LoginPage() {
       router.push('/pontos')
     } else {
       const data = await res.json()
-      toast.error(data.error || 'Erro no login')
+      toast.error(data.error || 'Erro no login')  
+      setIsLoading(false)
     }
   }
 
