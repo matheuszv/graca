@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
-import { MapPin, Tag, Home, Calendar, Send, Star } from 'lucide-react';
+import { MapPin, Instagram, Tag, Home, Calendar, Send, Star } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -28,6 +28,7 @@ type PointData = {
   tipoApoio: string;
   descricao: string;
   contato: string;
+  instagram: string;
   coordenada: [number, number],
   favorito: boolean
 };
@@ -52,6 +53,7 @@ export default function SupportPointModal({
     tipoApoio: '',
     contato: '',
     descricao: '',
+    instagram: '',
     coordenada: [0.232,0.2323],
     favorito: false
   },
@@ -179,6 +181,14 @@ export default function SupportPointModal({
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground">Tipo de apoio</p>
                   <p className="text-sm font-medium">{pointData.tipoApoio}</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <Instagram className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                <div className="space-y-1">
+                  <p className="text-sm text-muted-foreground">Instagram</p>
+                  <p className="text-sm font-medium">{pointData.instagram}</p>
                 </div>
               </div>
             </div>

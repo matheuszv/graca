@@ -50,6 +50,7 @@ export function Pontos({ cidades, apoioLista, comentarios, favoritos }:{cidades:
       contato: '',
       tipoApoio: '',
       descricao: '',
+      instagram: '',
       coordenada: [0.232, -0.12312] as [number, number],
       favorito: false
     });
@@ -66,6 +67,7 @@ export function Pontos({ cidades, apoioLista, comentarios, favoritos }:{cidades:
       contato: '',
       tipoApoio: '',
       descricao: '',
+      instagram: '',
       coordenada: [0,0],
       favorito: false
     })
@@ -83,7 +85,8 @@ export function Pontos({ cidades, apoioLista, comentarios, favoritos }:{cidades:
       tipoApoio: point.tipoApoio,
       descricao: point.descricao,
       coordenada: point.coordenada,
-      favorito: point.favorito
+      favorito: point.favorito,
+      instagram: point.instagram,
     });
     setIsModalOpen(true);
   };
@@ -170,7 +173,8 @@ export function Pontos({ cidades, apoioLista, comentarios, favoritos }:{cidades:
                   contato: apoio.contato,
                   descricao: apoio.descricao,
                   coordenada: apoio.coordenada,
-                  favorito: favoritos.some((point:any)=>point.idPonto == apoio.id)
+                  favorito: favoritos.some((point:any)=>point.idPonto == apoio.id),
+                  instagram: apoio.instagram,
                 })} className="rounded-2xl p-4 bg-card mt-2 cursor-pointer hover:shadow-lg hover:border hover:border-zinc-400 transition duration-400" key={apoio.id}>
                 <div className="flex justify-between items-center mb-2">
                   <h2 className="text-lg font-bold text-primary">{apoio.nome}</h2>
