@@ -132,11 +132,6 @@ export default function EditProfileForm({ userData }: {userData: any}) {
                 <span className="font-semibold">Email:</span> {currentUserData.email}
               </p>
             )}
-            {currentUserData.cpf && (
-              <p className="text-xs">
-                <span className="font-semibold">CPF:</span> {currentUserData.cpf}
-              </p>
-            )}
           </div>
 
           <div className="space-y-5">

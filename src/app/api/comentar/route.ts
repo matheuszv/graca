@@ -8,11 +8,22 @@ export async function POST(req: Request) {
   
   const dados = await req.json();
 
+  
+    const total = await prisma.comentarios.count({
+      where: {
+        userId: user?.userId.toString(),
+        pontoId: dados.pontoId,
+      },
+    })
+
+    if(total == 3) return NextResponse.json({message: 'Limite de comentários atingido para este ponto de doação.'}, { status: 403 });
+    
   try {
   const result = await prisma.comentarios.create({
-    data: {...dados, userId: user?.userId, data: new Date().toLocaleString('pt-BR').replace(',', ' •').slice(0,18),},
+    data: {...dados, userId: user?.userId, data: new Date().toLocaleString('pt-BR').replace(',', ' •').slice(0,18), createdAt: new Date()},
     include: {user: true}
   })
+
 
   return NextResponse.json(result, { status: 200 });
 

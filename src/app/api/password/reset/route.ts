@@ -11,7 +11,12 @@ export async function POST(req: Request) {
 
   const reset = await prisma.passwordResetCode.findFirst({ where: { email } })
 
-  if (!reset || reset.code !== codigo || reset.expiresAt < new Date()) {
+  if (!reset || reset.code !== codigo || reset.expiresAt < new Date() || reset.attempts >= 5) {
+    const result = await prisma.passwordResetCode.update({
+      where: { id: reset?.id },
+      data: { attempts: { increment: 1 } }
+    })
+    if(result.attempts >=5) return NextResponse.json({ error: 'Número máximo de tentativas excedido' }, { status: 403 })
     return NextResponse.json({ error: 'Código inválido ou expirado' }, { status: 400 })
   }
 

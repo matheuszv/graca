@@ -12,7 +12,7 @@ export default function Creditos() {
           <div className="flex items-center justify-center gap-2 mb-4 max-md:hidden">
             <HeartHandshakeIcon className="w-8 h-8 text-primary" />
           </div>
-          <h1 className="text-2xl font-bold text-primary mb-2 max-md:text-lg">GRACA</h1>
+          <h1 className="text-2xl font-bold text-primary mb-2 max-md:text-lg">GRAÇA</h1>
           <span className="text-muted-foreground text-sm max-md:text-xs">
             Gestor de Rede de Apoio Comunitário e Assistência
           </span>
@@ -25,7 +25,7 @@ export default function Creditos() {
             <div>
               <h3 className="font-semibold text-lg mb-2 max-md:mb-1">Sobre o Sistema</h3>
               <p className="text-sm text-muted-foreground leading-relaxed max-md:text-xs">
-                O GRACA é um sistema que conecta pessoas e comunidades através da solidariedade. 
+                O GRAÇA é um sistema que conecta pessoas e comunidades através da solidariedade. 
                 Ajudamos você a encontrar pontos de doação, seja para receber ajuda ou para 
                 contribuir com quem precisa.
               </p>
@@ -82,7 +82,7 @@ export default function Creditos() {
 
         {/* Rodapé */}
         <div className="text-center mt-4 text-xs text-muted-foreground">
-          <p>© 2025 GRACA - Todos os direitos reservados</p>
+          <p>© 2025 GRAÇA - Todos os direitos reservados</p>
           <p className="mt-1">Versão 1.0.0</p>
         </div>
       </div>

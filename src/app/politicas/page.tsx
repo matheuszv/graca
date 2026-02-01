@@ -25,7 +25,7 @@ export default function PoliticaPrivacidade() {
             {/* Introdução */}
             <section>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                O GRACA (Gestor de Rede de Apoio Comunitário e Assistência) respeita sua privacidade 
+                O GRAÇA (Gestor de Rede de Apoio Comunitário e Assistência) respeita sua privacidade 
                 e está comprometido em proteger seus dados pessoais. Esta política descreve como 
                 coletamos, usamos e protegemos suas informações.
               </p>
@@ -175,7 +175,7 @@ export default function PoliticaPrivacidade() {
         {/* Rodapé */}
         <div className="text-center mt-4 pt-4 border-t w-full">
           <p className="text-xs text-muted-foreground">
-            © 2025 GRACA - Comprometidos com sua privacidade
+            © 2025 GRAÇA - Comprometidos com sua privacidade
           </p>
         </div>
       </div>

@@ -36,8 +36,8 @@ export async function POST(req: Request) {
         from: `"Verificação" <${process.env.EMAIL_USER}>`,
         to: email,
         subject: "Seu código de verificação",
-        text: `Seu código de verificação é: ${code}`,
-        html: `<p>Seu código de verificação é:</p><h2>${code}</h2>`,
+        text: `Seu código de verificação para recuperar senha é: ${code}`,
+        html: `<p>Seu código de verificação para recuperar senha é:</p><h2>${code}</h2>`,
         
       }
 

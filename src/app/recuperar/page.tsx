@@ -6,6 +6,8 @@ import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
+import { toast } from 'sonner'
+
 
 export default function RecuperarSenhaPage() {
   const [step, setStep] = useState<1 | 2 | 3>(1)
@@ -25,10 +27,10 @@ export default function RecuperarSenhaPage() {
 
       if (!res.ok) throw await res.json()
 
-      alert('Se o e-mail existir, um código foi enviado.')
+      toast.info('Se o e-mail existir, um código foi enviado.')
       setStep(2)
     } catch (err: any) {
-      alert(err?.error || 'Erro ao enviar código.')
+      toast.error(err?.error || 'Erro ao enviar código.')
     } finally {
       setLoading(false)
     }
@@ -47,7 +49,7 @@ export default function RecuperarSenhaPage() {
 
       setStep(3)
     } catch (err: any) {
-      alert(err?.error || 'Código inválido.')
+      toast.error(err?.error || 'Código inválido.')
     } finally {
       setLoading(false)
     }
@@ -64,10 +66,10 @@ export default function RecuperarSenhaPage() {
 
       if (!res.ok) throw await res.json()
 
-      alert('Senha redefinida com sucesso!')
+      toast.success('Senha redefinida com sucesso!')
       window.location.href = '/login'
     } catch (err: any) {
-      alert(err?.error || 'Erro ao redefinir senha.')
+      toast.error(err?.error || 'Erro ao redefinir senha.')
     } finally {
       setLoading(false)
     }

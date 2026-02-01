@@ -24,7 +24,6 @@ export async function POST(req: Request) {
     const result = await prisma.users.create({
       data: {
         nome: data.nome,
-        cpf: data.cpf,
         telefone: data.telefone,
         email: data.email,
         senha: bcrypt.hashSync(data.senha, 10),

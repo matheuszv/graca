@@ -10,7 +10,6 @@ generator client {
 model users {
   id          String        @id @default(auto()) @map("_id") @db.ObjectId
   nome        String
-  cpf         String
   email       String
   telefone    String
   senha       String
@@ -70,6 +69,7 @@ model comentarios {
   userId     String
   comentario String
   data       String
+  createdAt  DateTime
 
   ponto pontos @relation(fields: [pontoId], references: [id], onDelete: Cascade)
   user  users  @relation(fields: [userId], references: [id])

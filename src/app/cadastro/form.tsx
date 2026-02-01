@@ -18,7 +18,6 @@ export default function CadastroPasso1() {
   const [code, setCode] = useState("")
   const [formData, setFormData] = useState({
     nome: "",
-    cpf: "",
     telefone: "",
     email: "",
     senha: "",
@@ -79,23 +78,11 @@ export default function CadastroPasso1() {
   return `${first}•••${last}@${domain}`;
 }
 
-  const formatCPF = (value: string) => {
-    let newValue = value.replace(/\D/g, ""); // remove tudo que não é número
-    if (newValue.length > 11) newValue = newValue.slice(0, 11); // limita a 11 dígitos
-    newValue = newValue
-      .replace(/(\d{3})(\d)/, "$1.$2")
-      .replace(/(\d{3})(\d)/, "$1.$2")
-      .replace(/(\d{3})(\d{1,2})$/, "$1-$2"); // aplica a máscara
-    return newValue;
-  };
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
-    let newValue = value;
+    const newValue = value;
 
-    if (name === "cpf") {
-      newValue = formatCPF(value);
-    }
     setFormData({ ...formData, [name]: newValue });
   };
 
@@ -150,21 +137,6 @@ export default function CadastroPasso1() {
                       name="nome"
                       placeholder="Joseph Oliveira"
                       value={formData.nome}
-                      onChange={handleChange}
-                      className="!bg-[#0a0a0a] border-gray-700 text-white placeholder-gray-500"
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="cpf" className="text-gray-300 mb-1 block">
-                      CPF
-                    </Label>
-                    <Input
-                      required
-                      id="cpf"
-                      name="cpf"
-                      placeholder="000.000.000-00"
-                      value={formData.cpf}
                       onChange={handleChange}
                       className="!bg-[#0a0a0a] border-gray-700 text-white placeholder-gray-500"
                     />
@@ -303,7 +275,7 @@ export default function CadastroPasso1() {
                 
                 <Button
                   type="submit"
-                  disabled={passo==1 ? (formData.cpf=="" || formData.nome=="" || formData.email=="" || formData.telefone=="" ) : (formData.senha=="" || formData.confirmsenha=="" || formData.senha!=formData.confirmsenha)}
+                  disabled={passo==1 ? (formData.nome=="" || formData.email=="" || formData.telefone=="" ) : (formData.senha=="" || formData.confirmsenha=="" || formData.senha!=formData.confirmsenha)}
                   className="flex-1 bg-[#00875F] hover:bg-[#00B37E] text-white font-medium py-2 rounded flex items-center justify-center gap-1 cursor-pointer"
                 >
                   {passo==3 ? 'Finalizar Cadastro' : 'Próximo passo'} <ArrowRight size={18} />
@@ -314,6 +286,7 @@ export default function CadastroPasso1() {
           </CardContent>
         </Card>
       </div>
+      {passo <3 && <span className="text-sm font-thin">Já possui uma conta? <Button variant={"link"} onClick={() => router.push('/login')}>Faça login</Button></span>}
     </div>
   );
 }

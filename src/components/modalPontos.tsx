@@ -103,7 +103,7 @@ export default function SupportPointModal({
       
       setNewComment('');
     } else {
-      toast.error("Erro ao comentars")
+      toast.error(comentario.message || 'Erro ao enviar comentário')
     }
 
     }
