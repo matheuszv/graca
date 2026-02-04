@@ -42,7 +42,7 @@ export default function PoliticaPrivacidade() {
                   </p>
                   <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
                     <li>Nome e informações de contato</li>
-                    <li>Localização geográfica para encontrar pontos de apoio</li>
+                    <li>Localização geográfica dos pontos de apoio</li>
                     <li>Dados de cadastro de pontos de doação</li>
                     <li>Histórico de interações com o sistema</li>
                   </ul>
@@ -63,7 +63,6 @@ export default function PoliticaPrivacidade() {
                     <li>Conectar você a pontos de apoio e doação</li>
                     <li>Facilitar a comunicação entre doadores e beneficiários</li>
                     <li>Melhorar a experiência do usuário</li>
-                    <li>Enviar notificações relevantes sobre pontos de apoio</li>
                     <li>Manter a segurança e integridade do sistema</li>
                   </ul>
                 </div>
@@ -100,47 +99,13 @@ export default function PoliticaPrivacidade() {
               </div>
             </section>
 
-            {/* Direitos do Usuário */}
-            <section>
-              <div className="flex items-start gap-3 mb-3">
-                <FileText className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                <div>
-                  <h2 className="text-lg font-semibold mb-2">5. Seus Direitos</h2>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-2">
-                    De acordo com a LGPD (Lei Geral de Proteção de Dados), você tem direito a:
-                  </p>
-                  <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                    <li>Acessar seus dados pessoais</li>
-                    <li>Corrigir dados incompletos ou desatualizados</li>
-                    <li>Solicitar a exclusão de seus dados</li>
-                    <li>Revogar consentimento a qualquer momento</li>
-                    <li>Solicitar portabilidade de dados</li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-
-            {/* Cookies */}
-            <section>
-              <div className="flex items-start gap-3 mb-3">
-                <AlertCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                <div>
-                  <h2 className="text-lg font-semibold mb-2">6. Cookies e Tecnologias</h2>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Utilizamos cookies e tecnologias semelhantes para melhorar sua experiência, 
-                    manter sua sessão ativa e analisar o uso do sistema. Você pode configurar 
-                    seu navegador para recusar cookies, mas isso pode afetar a funcionalidade.
-                  </p>
-                </div>
-              </div>
-            </section>
 
             {/* Alterações */}
             <section>
               <div className="flex items-start gap-3 mb-3">
                 <FileText className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                 <div>
-                  <h2 className="text-lg font-semibold mb-2">7. Alterações na Política</h2>
+                  <h2 className="text-lg font-semibold mb-2">5. Alterações na Política</h2>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     Podemos atualizar esta política periodicamente. Notificaremos você sobre 
                     mudanças significativas através do sistema ou por e-mail. Recomendamos 
@@ -155,7 +120,7 @@ export default function PoliticaPrivacidade() {
               <div className="flex items-start gap-3 mb-3">
                 <Mail className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                 <div>
-                  <h2 className="text-lg font-semibold mb-2">8. Contato</h2>
+                  <h2 className="text-lg font-semibold mb-2">6. Contato</h2>
                   <p className="text-sm text-muted-foreground leading-relaxed mb-2">
                     Para exercer seus direitos ou esclarecer dúvidas sobre privacidade:
                   </p>
