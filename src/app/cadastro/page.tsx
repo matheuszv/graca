@@ -13,7 +13,7 @@ export default async function CadastroPage() {
   
 
   return (
-    <div className="dark">    
+    <div>
         <CadastroPasso1 />
     </div>
   )

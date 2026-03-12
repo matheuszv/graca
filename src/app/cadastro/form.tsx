@@ -102,11 +102,23 @@ export default function CadastroPasso1() {
 
   return (
     <div className="flex flex-col items-center justify-center bg-transparent px-4 py-4 gap-2 h-screen">
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none w-full h-full">
+
+          {/* TRIÂNGULOS VIVOS E SOLTOS (Onde a arte acontece) */}
+          <svg className="absolute top-0 right-0 w-1/2 h-full opacity-20" viewBox="0 0 400 800" fill="none">
+            {/* Triângulo Turquesa */}
+            <path d="M450 100L250 350L550 400Z" fill="#2dd4bf" />
+            {/* Triângulo Amarelo */}
+            <path d="M300 500L100 700L400 750Z" fill="#facc15" />
+            {/* Triângulo Azul */}
+            <path d="M500 600L350 780L600 850Z" fill="#3b82f6" />
+          </svg>
+      </div>
       <div className="w-full max-w-md">
-        <h1 className="text-white text-2xl font-semibold px-3 py-1">
+        <h1 className="text-gray-800 text-2xl font-semibold px-3 py-1">
           Bem-vindo ao <span className="font-bold">GRAÇA!</span>
         </h1>
-        <p className="text-gray-400 px-3 py-1">
+        <p className="text-gray-600 px-3 py-1">
           Precisamos de algumas informações para que você possa criar pontos de apoio.
         </p>
 
@@ -116,19 +128,19 @@ export default function CadastroPasso1() {
             <span>Passo {passo} de 3</span>
           </div>
           <div className="w-full h-1 rounded flex gap-2">
-            <div className={`h-1 bg-white rounded w-1/3`}></div>
-            <div className={`h-1 ${passo>1 ? 'bg-white' : 'bg-gray-700'} rounded w-1/3`}></div>
-            <div className={`h-1 ${passo>2 ? 'bg-white' : 'bg-gray-700'} rounded w-1/3`}></div>
+            <div className={`h-1 bg-primary rounded w-1/3`}></div>
+            <div className={`h-1 ${passo>1 ? 'bg-primary' : 'bg-gray-300'} rounded w-1/3`}></div>
+            <div className={`h-1 ${passo>2 ? 'bg-primary' : 'bg-gray-300'} rounded w-1/3`}></div>
           </div>
         </div>
 
-        <Card className="bg-[#121214] border-none">
+        <Card className="border-none">
           <CardContent className="px-6 py-3">
             <form onSubmit={handleSubmit} className="space-y-4">
               {passo==1 && (
                 <div className="space-y-4">
                   <div>
-                    <Label htmlFor="nome" className="text-gray-300 mb-2 block">
+                    <Label htmlFor="nome" className="text-gray-700 mb-2 block">
                       Nome Completo
                     </Label>
                     <Input
@@ -138,12 +150,12 @@ export default function CadastroPasso1() {
                       placeholder="Joseph Oliveira"
                       value={formData.nome}
                       onChange={handleChange}
-                      className="!bg-[#0a0a0a] border-gray-700 text-white placeholder-gray-500"
+                      className="!bg-white border-gray-300 text-gray-900 placeholder-gray-400"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="telefone" className="text-gray-300 mb-1 block">
+                    <Label htmlFor="telefone" className="text-gray-700 mb-1 block">
                       TELEFONE
                     </Label>
                     <Input
@@ -153,12 +165,12 @@ export default function CadastroPasso1() {
                       placeholder="(83) 99999-9999"
                       value={formData.telefone}
                       onChange={handleChange}
-                      className="!bg-[#0a0a0a] border-gray-700 text-white placeholder-gray-500"
+                      className="!bg-white border-gray-300 text-gray-900 placeholder-gray-400"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="email" className="text-gray-300 mb-1 block">
+                    <Label htmlFor="email" className="text-gray-700 mb-1 block">
                       E-MAIL
                     </Label>
                     <Input
@@ -169,7 +181,7 @@ export default function CadastroPasso1() {
                       placeholder="Joseph@gmail.com"
                       value={formData.email}
                       onChange={handleChange}
-                      className="!bg-[#0a0a0a] border-gray-700 text-white placeholder-gray-500"
+                      className="!bg-white border-gray-300 text-gray-900 placeholder-gray-400"
                     />
                   </div>
                 </div>
@@ -177,7 +189,7 @@ export default function CadastroPasso1() {
               {passo==2 && (
                 <div className="space-y-4">
                   <div>
-                    <Label htmlFor="nome" className="text-gray-300 mb-2 block">
+                    <Label htmlFor="nome" className="text-gray-700 mb-2 block">
                       Email
                     </Label>
                     <Input
@@ -187,12 +199,12 @@ export default function CadastroPasso1() {
                       placeholder=""
                       value={formData.email}
                       onChange={handleChange}
-                      className="!bg-[#0a0a0a] border-gray-700 text-white placeholder-gray-500"
+                      className="!bg-white border-gray-300 text-gray-900 placeholder-gray-400"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="senha" className="text-gray-300 mb-1 block">
+                    <Label htmlFor="senha" className="text-gray-700 mb-1 block">
                       Senha
                     </Label>
                     <Input
@@ -202,12 +214,12 @@ export default function CadastroPasso1() {
                       type="password"
                       value={formData.senha}
                       onChange={handleChange}
-                      className="!bg-[#0a0a0a] border-gray-700 text-white placeholder-gray-500"
+                      className="!bg-white border-gray-300 text-gray-900 placeholder-gray-400"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="confirmsenha" className="text-gray-300 mb-1 block">
+                    <Label htmlFor="confirmsenha" className="text-gray-700 mb-1 block">
                       Confirme a senha
                     </Label>
                     <Input
@@ -217,7 +229,7 @@ export default function CadastroPasso1() {
                       type="password"
                       value={formData.confirmsenha}
                       onChange={handleChange}
-                      className="!bg-[#0a0a0a] border-gray-700 text-white placeholder-gray-500"
+                      className="!bg-white border-gray-300 text-gray-900 placeholder-gray-400"
                     />
                   </div>
                 </div>
@@ -226,12 +238,12 @@ export default function CadastroPasso1() {
               {passo==3 && (
                 <div className="space-y-3">
                 <CardHeader >
-                  <CardTitle className="text-2xl font-semibold tracking-tight text-foreground">
+                  <CardTitle className="text-2xl font-semibold tracking-tight text-gray-800">
                     Confirme sua identidade
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-sm text-foreground">
+                  <CardDescription className="text-sm text-gray-700">
                     Confira seu e-mail <strong className="font-semibold"> {truncateEmail(formData.email)} </strong>e insira o código de verificação abaixo.
                   </CardDescription>
                   <div className="flex justify-center my-6">
@@ -251,8 +263,8 @@ export default function CadastroPasso1() {
                       </InputOTPGroup>
                     </InputOTP>
                   </div>
-                  <div className="flex flex-col gap-3 pt-2 pb-8 border-b border-gray-700">
-                    <span className="flex justify-center text-sm font-thin">Lembre-se de verificar a caixa de spam</span>
+                  <div className="flex flex-col gap-3 pt-2 pb-8 border-b border-gray-200">
+                    <span className="flex justify-center text-sm font-thin text-gray-600">Lembre-se de verificar a caixa de spam</span>
                     <ResendCodeButton initialMinutes={5} onResend={fetchSendEmail} />
                   </div>
                 </CardContent>
@@ -266,7 +278,7 @@ export default function CadastroPasso1() {
                     <Button
                       type="button"
                       onClick={() => setPassos(passo-1)}
-                      className="bg-[#3A3A3A] hover:bg-[#4a4a4a] text-white font-medium py-2 rounded flex items-center justify-center gap-1 cursor-pointer"
+                      className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 rounded flex items-center justify-center gap-1 cursor-pointer"
                     >
                       <ArrowLeft size={18} /> Anterior 
                     </Button>

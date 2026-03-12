@@ -77,6 +77,18 @@ export default function RecuperarSenhaPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4 py-8">
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none w-full h-full">
+
+          {/* TRIÂNGULOS VIVOS E SOLTOS (Onde a arte acontece) */}
+          <svg className="absolute top-0 right-0 w-1/2 h-full opacity-20" viewBox="0 0 400 800" fill="none">
+            {/* Triângulo Turquesa */}
+            <path d="M450 100L250 350L550 400Z" fill="#2dd4bf" />
+            {/* Triângulo Amarelo */}
+            <path d="M300 500L100 700L400 750Z" fill="#facc15" />
+            {/* Triângulo Azul */}
+            <path d="M500 600L350 780L600 850Z" fill="#3b82f6" />
+          </svg>
+      </div>
       <div className="w-full max-w-md animate-fade-in">
         <Card className="border-border bg-card backdrop-blur-sm shadow-2xl">
           <CardHeader>

@@ -1,11 +1,23 @@
 'use client'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Shield, Lock, Eye, Database, UserCheck, AlertCircle, FileText, Mail } from 'lucide-react'
+import { Shield, Lock, Eye, Database, UserCheck, FileText, Mail } from 'lucide-react'
 
 export default function PoliticaPrivacidade() {
   return (
-    <div className="flex-1 justify-center items-center min-h-screen bg-background">
-      <div className="border-border bg-[#202024] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-center flex items-center flex-col px-6 py-8 rounded-lg h-[650px] w-[700px] max-md:w-[350px] max-md:h-[570px] z-[10] shadow-2xl">
+    <div className="flex-1 justify-center items-center bg-background">
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none w-full h-full">
+
+          {/* TRIÂNGULOS VIVOS E SOLTOS (Onde a arte acontece) */}
+          <svg className="absolute top-0 right-0 w-1/2 h-full opacity-20" viewBox="0 0 400 800" fill="none">
+            {/* Triângulo Turquesa */}
+            <path d="M450 100L250 350L550 400Z" fill="#2dd4bf" />
+            {/* Triângulo Amarelo */}
+            <path d="M300 500L100 700L400 750Z" fill="#facc15" />
+            {/* Triângulo Azul */}
+            <path d="M500 600L350 780L600 850Z" fill="#3b82f6" />
+          </svg>
+      </div>
+      <div className="bg-[#fcfcfc] border border-[#ebebeb] text-gray-800 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-center flex items-center flex-col px-6 py-8 rounded-lg h-[650px] w-[700px] max-md:w-[350px] max-md:h-[570px] z-[10] shadow-2xl">
         
         {/* Cabeçalho */}
         <div className="text-center mb-6">

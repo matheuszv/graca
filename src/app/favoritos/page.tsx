@@ -54,7 +54,7 @@ export default async function getCidades() {
     })
 
     return(
-        <div className="dark">
+        <div>
             <MeusFavoritos pontosFiltrados={pontosFormatados} cidades={cidadesFormatadas} comentarios={comentarios}/>
         </div>
     )

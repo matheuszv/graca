@@ -22,7 +22,7 @@ export default async function RootLayout({
 }>) {
     
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <link rel="icon" href={icon.src} />
       </head>

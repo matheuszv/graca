@@ -31,7 +31,7 @@ export default async function getCidades() {
         }
     })
     return(
-        <div className="dark">
+        <div>
             <ScrollableCardsList
                 pontosFiltrados={pontos}
                 cidades={cidadesFormatadas}

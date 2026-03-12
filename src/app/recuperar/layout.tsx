@@ -15,7 +15,7 @@ export default async function RootLayout({
     }
 
   return (
-    <div className="dark">
+    <div>
       <Toaster
           position="top-right"
           richColors={true}

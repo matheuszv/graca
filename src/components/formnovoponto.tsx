@@ -98,8 +98,20 @@ export default function NovoPontoForm({
 
   return (
     <div className="flex-1 justify-center items-center">
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none w-full h-full">
+
+        {/* TRIÂNGULOS VIVOS E SOLTOS (Onde a arte acontece) */}
+        <svg className="absolute top-0 right-0 w-1/2 h-full opacity-20" viewBox="0 0 400 800" fill="none">
+          {/* Triângulo Turquesa */}
+          <path d="M450 100L250 350L550 400Z" fill="#2dd4bf" />
+          {/* Triângulo Amarelo */}
+          <path d="M300 500L100 700L400 750Z" fill="#facc15" />
+          {/* Triângulo Azul */}
+          <path d="M500 600L350 780L600 850Z" fill="#3b82f6" />
+        </svg>
+      </div>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 inset-0 justify-center flex flex-col p-4 rounded-lg w-[500px] max-md:w-[350px] z-[10] max-md:p-2">
-        <Card className="border-border bg-card backdrop-blur-sm shadow-2xl max-md:gap-0.5">
+        <Card className="border-border backdrop-blur-sm shadow-2xl max-md:gap-0.5 border border-[#ebebeb] bg-[#fcfcfc]">
           <CardHeader className="text-center">
             <CardTitle className="text-xl font-semibold tracking-tight text-foreground max-md:text-lg">
               Novo Ponto de Doação
@@ -144,7 +156,6 @@ export default function NovoPontoForm({
                   <Label htmlFor="local">Cidade</Label>
                   <ConfigProvider
                       theme={{
-                        algorithm:  theme.darkAlgorithm, // OU: theme.darkAlgorithm
                         token: {
                           colorPrimary: '#b7e3fa',
                         },

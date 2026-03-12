@@ -78,8 +78,20 @@ export default function MeusFavoritos({
 
   return ( 
     <div className="flex-1 justify-center items-center">
-      <div className="border-border bg-[#202024] max-md:gap-0.5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 inset-0 justify-center flex items-center flex-col px-4 py-8 rounded-lg h-[580px] w-[400px] max-md:w-[350px] z-[10] max-md:p-2">
-        <span className='text-lg font-bold text-left py-3'>Meus favoritos</span>
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none w-full h-full">
+
+          {/* TRIÂNGULOS VIVOS E SOLTOS (Onde a arte acontece) */}
+          <svg className="absolute top-0 right-0 w-1/2 h-full opacity-20" viewBox="0 0 400 800" fill="none">
+            {/* Triângulo Turquesa */}
+            <path d="M450 100L250 350L550 400Z" fill="#2dd4bf" />
+            {/* Triângulo Amarelo */}
+            <path d="M300 500L100 700L400 750Z" fill="#facc15" />
+            {/* Triângulo Azul */}
+            <path d="M500 600L350 780L600 850Z" fill="#3b82f6" />
+          </svg>
+        </div>
+      <div className="border-border text-gray-800 max-md:gap-0.5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 inset-0 justify-center flex items-center flex-col px-4 py-8 rounded-lg h-[580px] w-[400px] max-md:w-[350px] z-[10] max-md:p-2 bg-[#fcfcfc] border border-[#ebebeb]">
+        <span className='text-lg font-bold text-left py-3 text-gray-900'>Meus favoritos</span>
         
         <ScrollArea className="h-[470px] w-[340px] p-3">
           <div className="space-y-2">
@@ -105,11 +117,11 @@ export default function MeusFavoritos({
                   })}
                 >
                   <div className="flex justify-between items-bottom mb-3">
-                    <h2 className="text-lg font-bold text-primary">{apoio.nome}</h2>
-                    <div className="flex justify-between items-center gap-0.5 text-sm text-musted-foreground whitespace-nowrap">
-                      <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+                      <h2 className="text-lg font-bold text-primary">{apoio.nome}</h2>
+                      <div className="flex justify-between items-center gap-0.5 text-sm text-muted-foreground whitespace-nowrap">
+                        <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+                      </div>
                     </div>
-                  </div>
 
                   <div className="space-y-2 text-sm text-muted-foreground mb-3">
                     <div className="flex items-start gap-2">
