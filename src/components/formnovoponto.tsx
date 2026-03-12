@@ -25,7 +25,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { cn } from "@/lib/utils";
 import SeletorDeCoordenadas from "./seletordecoordenadas";
 import { useRouter } from "next/navigation";
-import { ConfigProvider, Select, theme } from "antd";
+import { ConfigProvider, Select } from "antd";
 import { toast } from 'sonner'
 
 interface cidades {
