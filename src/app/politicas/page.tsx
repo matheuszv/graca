@@ -26,7 +26,7 @@ export default function PoliticaPrivacidade() {
           </div>
           <h1 className="text-2xl font-bold text-primary mb-2 max-md:text-xl">Política de Privacidade</h1>
           <p className="text-sm text-muted-foreground">
-            Última atualização: 15 de outubro de 2025
+            Última atualização: 2 de janeiro de 2026
           </p>
         </div>
 
@@ -152,7 +152,7 @@ export default function PoliticaPrivacidade() {
         {/* Rodapé */}
         <div className="text-center mt-4 pt-4 border-t w-full">
           <p className="text-xs text-muted-foreground">
-            © 2025 GRAÇA - Comprometidos com sua privacidade
+            © 2026 GRAÇA - Comprometidos com sua privacidade
           </p>
         </div>
       </div>
