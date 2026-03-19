@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-'use client'
+"use client"
 import { useState, useCallback } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Search, Calendar, Building2, MapPin, Tag } from "lucide-react";
@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { ComboboxDemo } from "./data";
 import dynamic from 'next/dynamic'
+import SupportPointModalPublic from './modalPontosPublic'
 
 // Importação dinâmica — garante que só roda no navegador
 const MapaClient = dynamic(() => import('./mapa'), {
@@ -16,11 +17,63 @@ const MapaClient = dynamic(() => import('./mapa'), {
 })
 
 
-export function PontosPublic({ cidades, apoioLista }: { cidades: any[]; apoioLista: any[] }) {
+export function PontosPublic({ cidades, apoioLista}: { cidades: any[]; apoioLista: any[]; }) {
   const [apoioList, setApoioList] = useState(apoioLista);
   const [isMapOpen, setIsMapOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [cidadeEscolhida, setCidadeEscolhida] = useState<number>(0);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPoint, setSelectedPoint] = useState({
+    id: '0',
+    name: '',
+    data: '',
+    local: '',
+    endereco: '',
+    cidade: '',
+    contato: '',
+    tipoApoio: '',
+    descricao: '',
+    instagram: '',
+    coordenada: [0,0] as [number, number],
+    favorito: false
+  });
+
+  function handleCloseModal(){
+    setIsModalOpen(false)
+    setSelectedPoint({
+      id: '0',
+      name: '',
+      data: '',
+      local: '',
+      endereco: '',
+      cidade: '',
+      contato: '',
+      tipoApoio: '',
+      descricao: '',
+      instagram: '',
+      coordenada: [0,0],
+      favorito: false
+    })
+  }
+
+  const handleOpenModal = (point: any) => {
+    setSelectedPoint({
+      id: point.id,
+      name: point.name,
+      data: point.data,
+      local: point.local,
+      endereco: point.endereco,
+      cidade: point.cidade,
+      contato: point.contato,
+      tipoApoio: point.tipoApoio,
+      descricao: point.descricao,
+      coordenada: point.coordenada,
+      favorito: point.favorito,
+      instagram: point.instagram,
+    })
+    setIsModalOpen(true)
+  }
 
   const tipoApoio = [
     { nome: "Alimentos", id: 1 },
@@ -92,7 +145,21 @@ export function PontosPublic({ cidades, apoioLista }: { cidades: any[]; apoioLis
           ) : (
             pontosFiltrados.map((apoio: any) => (
               <Card
-                className="rounded-2xl p-4 bg-card mt-2"
+                onClick={() => handleOpenModal({
+                  id: apoio.id,
+                  name: apoio.nome,
+                  data: `${(apoio.data[0])} • ${apoio.hora}`,
+                  local: apoio.local,
+                  endereco: apoio.endereco,
+                  cidade: cidades.find((cidade: any) => cidade.id === apoio.cidade)?.label,
+                  tipoApoio: tipoApoio.find((tipo: any) => tipo.id === apoio.tipoApoio)?.nome,
+                  contato: apoio.contato,
+                  descricao: apoio.descricao,
+                  coordenada: apoio.coordenada,
+                  favorito: false,
+                  instagram: apoio.instagram,
+                })}
+                className="rounded-2xl p-4 bg-card mt-2 cursor-pointer"
                 key={apoio.id}
               >
                 <div className="flex justify-between items-center mb-2">
@@ -137,6 +204,14 @@ export function PontosPublic({ cidades, apoioLista }: { cidades: any[]; apoioLis
             ))
           )}
         </ScrollArea>
+        {selectedPoint.id!='0' && (
+          <SupportPointModalPublic
+            isOpen={isModalOpen}
+            onClose={()=>handleCloseModal()}
+            pointData={selectedPoint}
+            comentarios={[]}
+          />
+        )}
       </div>
     </div>
   );
