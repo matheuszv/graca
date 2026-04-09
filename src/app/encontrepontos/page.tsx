@@ -12,7 +12,7 @@ export default async function Page() {
         return {
           id: cidade.codigo_ibge,
           value: cidade.codigo_ibge,
-          label: cidade.nome_completo,
+          nome: cidade.nome_completo,
           coord: [cidade.coord[1], cidade.coord[0]] as [number, number]
         }
     })
