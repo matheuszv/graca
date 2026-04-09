@@ -36,6 +36,7 @@ export default function MeusFavoritos({
       contato: '',
       tipoApoio: '',
       descricao: '',
+      instagram: '',
       coordenada: [0.232, -0.12312] as [number, number],
       favorito: false
     });
@@ -52,6 +53,7 @@ export default function MeusFavoritos({
       contato: '',
       tipoApoio: '',
       descricao: '',
+      instagram: '',
       coordenada: [0,0],
       favorito: false
     })
@@ -112,6 +114,7 @@ export default function MeusFavoritos({
                     tipoApoio: tipoApoio.find((tipo: any)=> tipo.id == apoio.tipoApoio)?.nome,
                     contato: apoio.contato,
                     descricao: apoio.descricao,
+                    instagram: apoio.instagram,
                     coordenada: apoio.coordenada.split(',').map((text: string)=> {return parseFloat(text)}) as [number, number],
                     favorito: true
                   })}
