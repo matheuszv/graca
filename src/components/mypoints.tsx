@@ -45,9 +45,9 @@ export default function ScrollableCardsList({
   const router = useRouter()
 
   const tipoApoioExemplo: TipoApoio[] = [
-    { id: 1, nome: "Apoio Psicológico" },
-    { id: 2, nome: "Doação de Alimentos" },
-    { id: 3, nome: "Atendimento Médico" }
+    { id: 1, nome: "Alimentos" },
+    { id: 2, nome: "Roupas" },
+    { id: 3, nome: "Higiene" }
   ]
     const handleDelete = async (id: string) => {
       const result = await fetch('/api/novoponto',{
